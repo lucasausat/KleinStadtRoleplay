@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Königsbrunn | Urban Intelligence</title>
+    <title>Königsbrunn | District 50-KM²</title>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -46,10 +46,32 @@
 
         /* --- HERO --- */
         header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        header h1 { font-family: var(--font-tech); font-size: clamp(1.2rem, 5vw, 3.8rem); text-transform: uppercase; font-weight: 400; letter-spacing: 2px; }
-        .hero-sub { color: var(--primary); font-family: var(--font-tech); font-size: 0.55rem; letter-spacing: 10px; margin-bottom: 25px; opacity: 0.8; }
+        
+        .dev-badge {
+            font-family: var(--font-tech);
+            font-size: 0.5rem;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 5px 12px;
+            border-radius: 2px;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            background: rgba(0, 255, 136, 0.05);
+            text-transform: uppercase;
+        }
 
-        /* --- DYNAMISCHES RADAR --- */
+        header h1 { 
+            font-family: var(--font-tech); 
+            font-size: clamp(1.5rem, 6vw, 4.2rem); 
+            text-transform: uppercase; 
+            font-weight: 700; 
+            letter-spacing: -2px; 
+            margin-bottom: 30px;
+        }
+        
+        .hero-sub { color: #fff; font-family: var(--font-tech); font-size: 0.6rem; letter-spacing: 8px; opacity: 0.5; margin-bottom: 10px; }
+
+        /* --- RADAR --- */
         .radar-container {
             grid-column: span 8; height: 500px; background: rgba(0,0,0,0.3);
             border-radius: 25px; border: 0.5px solid var(--glass-border); position: relative;
@@ -99,7 +121,7 @@
         .btn-locked { border-color: var(--danger); color: var(--danger); }
         .btn-locked:hover { background: var(--danger); color: #fff; }
 
-        /* --- TEAM SECTION --- */
+        /* --- TEAM --- */
         .team-container { max-width: 900px; margin: 120px auto; padding: 0 40px; }
         .team-card { 
             display: flex; align-items: center; padding: 22px 20px; 
@@ -112,42 +134,31 @@
         .team-rank { font-family: var(--font-tech); font-size: 0.5rem; margin-left: auto; letter-spacing: 2px; text-align: right; }
         .status-light { width: 6px; height: 6px; border-radius: 50%; margin-right: 20px; box-shadow: 0 0 12px currentColor; animation: pulse 2s infinite; }
         
-        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+        @keyframes pulse { 0% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.4; transform: scale(0.9); } }
 
         /* --- MODERN DENIED OVERLAY --- */
         #denied-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.95) 100%);
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.98) 100%);
             display: none; z-index: 11000; 
             justify-content: center; align-items: center; 
-            backdrop-filter: blur(12px) saturate(0.5);
-            transition: 0.3s opacity;
+            backdrop-filter: blur(15px) saturate(0.2);
         }
         .denied-content {
             text-align: center; border: 1px solid var(--danger);
-            padding: 60px; background: rgba(255, 0, 0, 0.03);
-            box-shadow: 0 0 50px rgba(255, 71, 87, 0.2);
-            position: relative; overflow: hidden;
+            padding: 60px; background: rgba(10, 0, 0, 0.8);
+            box-shadow: 0 0 100px rgba(255, 71, 87, 0.15);
+            position: relative;
         }
-        .denied-content::before {
-            content: ""; position: absolute; top: 0; left: -100%; width: 200%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            animation: scan-effect 2s infinite;
-        }
-        @keyframes scan-effect { 0% { left: -100%; } 100% { left: 100%; } }
-
         .glitch-text {
-            font-family: var(--font-tech); font-size: 2.8rem; color: var(--danger);
-            letter-spacing: 8px; text-shadow: 2px 2px #000;
-            animation: glitch 0.2s infinite;
+            font-family: var(--font-tech); font-size: 3rem; color: var(--danger);
+            letter-spacing: 12px; text-shadow: 3px 3px #000;
+            animation: glitch 0.15s infinite;
         }
         @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
+            0% { transform: translate(2px, -2px); opacity: 0.8; }
+            50% { transform: translate(-2px, 2px); opacity: 1; }
+            100% { transform: translate(1px, 1px); opacity: 0.9; }
         }
 
         footer { padding: 80px; text-align: center; opacity: 0.3; font-size: 0.55rem; font-family: var(--font-tech); letter-spacing: 4px; }
@@ -163,10 +174,10 @@
 
 <div id="denied-overlay" onclick="this.style.display='none'">
     <div class="denied-content">
-        <div style="font-family: var(--font-tech); font-size: 0.6rem; color: var(--danger); margin-bottom: 10px; opacity: 0.6;">SYSTEM SECURITY BREACH DETECTED</div>
+        <div style="font-family: var(--font-tech); font-size: 0.6rem; color: var(--danger); margin-bottom: 15px; letter-spacing: 5px;">SECURITY BREACH // FIREWALL ACTIVE</div>
         <h1 class="glitch-text">ACCESS DENIED</h1>
-        <div style="width: 100%; height: 1px; background: var(--danger); margin: 20px 0; opacity: 0.3;"></div>
-        <p style="letter-spacing: 5px; font-size: 0.65rem; color: #fff; opacity: 0.8;">AUTH_ERROR: INSUFFICIENT_LEVEL_CLEARANCE</p>
+        <div style="width: 50px; height: 2px; background: var(--danger); margin: 30px auto; opacity: 0.5;"></div>
+        <p style="letter-spacing: 4px; font-size: 0.6rem; color: #fff; opacity: 0.6; text-transform: uppercase;">Unbefugter Zugriff auf Stadt-Zentralrechner verhindert.</p>
     </div>
 </div>
 
@@ -176,9 +187,10 @@
 </nav>
 
 <header>
+    <div class="dev-badge reveal">IN ENTWICKLUNG // DEV-PHASE</div>
     <div class="hero-sub reveal">DATENSATZ NR. 2026-KB</div>
     <h1 class="reveal">DISTRICT 50-KM<span style="color: var(--primary); font-weight: 700;">²</span></h1>
-    <div style="display: flex; gap: 15px; margin-top: 35px;">
+    <div style="display: flex; gap: 15px; margin-top: 20px;">
         <button class="cta-btn btn-locked" onclick="showDenied()">STADTPORTAL</button>
         <a href="https://discord.gg/QX5xj22dGW" class="cta-btn">COM-LINK</a>
     </div>
@@ -223,7 +235,7 @@
 <div style="height: 200px;"></div>
 
 <footer>
-    EST. 2026 // KÖNIGSBRUNN NETWORK // CRYPTOGRAPHICALLY SECURED
+    EST. 2026 // KÖNIGSBRUNN NETWORK // DISTRICT 50-KM² // CRYPTOGRAPHICALLY SECURED
 </footer>
 
 <script>
@@ -239,8 +251,7 @@
     function showDenied() {
         const overlay = document.getElementById('denied-overlay');
         overlay.style.display = 'flex';
-        // Automatisches Schließen nach 3 Sekunden
-        setTimeout(() => { overlay.style.display = 'none'; }, 3000);
+        setTimeout(() => { overlay.style.display = 'none'; }, 2500);
     }
 
     const observer = new IntersectionObserver(entries => {
@@ -250,7 +261,7 @@
     }, { threshold: 0.1 });
     document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
-    // --- RADAR ENGINE ---
+    // --- RADAR ---
     const radar = document.getElementById('radar');
     const objCount = document.getElementById('obj-count');
     
@@ -270,7 +281,7 @@
         objCount.innerText = "ENTITÄTEN: " + (Math.floor(Math.random() * 20) + 12);
     }, 2500);
 
-    // --- TEAM MANAGEMENT ---
+    // --- TEAM ---
     const team = [
         { name: "lucas.aus.at", role: "TOP-MANAGEMENT", color: "#00ff88" },
         { name: "joge2286", role: "TOP-MANAGEMENT", color: "#00ff88" },
