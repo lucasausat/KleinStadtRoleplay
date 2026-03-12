@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waldersreuth RP | Offizielles Portal</title>
+    <title>Waldersreuth RP | Dorfleben auf Roblox</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -14,7 +14,6 @@
             --text: #e5e7eb;
         }
 
-        /* DARK MODE (Standard für RP ist meist Dark, aber hier als Switch) */
         body.ghost-mode {
             --bg: #030504;
             --primary: #27ae60;
@@ -25,7 +24,14 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; transition: background 0.5s; }
 
-        /* --- LOADER MIT WALD-PARTIKELN --- */
+        /* --- CUSTOM CURSOR --- */
+        #cursor {
+            width: 20px; height: 20px; border: 2px solid var(--primary); border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            box-shadow: 0 0 15px var(--primary-glow); transform: translate(-50%, -50%); transition: transform 0.1s ease;
+        }
+
+        /* --- LOADER --- */
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -35,11 +41,16 @@
         .loader-bar-container { width: 250px; height: 2px; background: #222; margin-top: 20px; overflow: hidden; }
         .loader-bar { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s ease; }
 
-        /* --- CUSTOM CURSOR --- */
-        #cursor {
-            width: 20px; height: 20px; border: 2px solid var(--primary); border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 9999;
-            box-shadow: 0 0 15px var(--primary-glow); transform: translate(-50%, -50%); transition: transform 0.1s ease;
+        /* --- MODAL (HINWEIS FENSTER) --- */
+        #work-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 9000; display: none;
+            align-items: center; justify-content: center; backdrop-filter: blur(8px);
+        }
+        .modal-box {
+            background: var(--card-bg); padding: 40px; border: 2px solid var(--primary);
+            border-radius: 20px; text-align: center; max-width: 450px;
+            box-shadow: 0 0 30px var(--primary-glow);
         }
 
         /* --- HERO --- */
@@ -54,17 +65,20 @@
             filter: drop-shadow(0 0 30px var(--primary-glow));
         }
 
-        /* --- INTERAKTIVE KARTE (STILISIERT) --- */
+        /* --- VERSCHLÜSSELTE KARTE --- */
         .map-section { padding: 100px 20px; text-align: center; }
-        .map-placeholder {
-            max-width: 800px; margin: 40px auto; background: var(--card-bg); border: 1px solid var(--primary);
-            padding: 50px; border-radius: 20px; position: relative; overflow: hidden;
+        .map-locked {
+            max-width: 800px; margin: 40px auto; height: 400px;
+            background: #111; border: 1px solid var(--primary);
+            border-radius: 20px; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
         }
-        .map-point {
-            position: absolute; width: 15px; height: 15px; background: var(--primary); border-radius: 50%;
-            cursor: pointer; box-shadow: 0 0 10px var(--primary); transition: 0.3s;
+        .scanlines {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(rgba(18, 16, 16, 0) 0, rgba(10, 10, 10, 0.5) 50%, rgba(18, 16, 16, 0) 100%);
+            background-size: 100% 4px; pointer-events: none; z-index: 2;
         }
-        .map-point:hover { transform: scale(1.5); background: #fff; }
+        .lock-content { z-index: 3; text-align: center; }
 
         /* --- GRID & CARDS --- */
         .container { max-width: 1200px; margin: auto; padding: 60px 20px; }
@@ -76,25 +90,23 @@
         .card.visible { opacity: 1; transform: translateY(0); }
         .card:hover { border-color: var(--primary); box-shadow: 0 0 30px var(--primary-glow); transform: translateY(-5px); }
 
-        /* --- TEAM --- */
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px; }
-        .team-member { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 15px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
-        .role-tag { font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; text-transform: uppercase; font-weight: bold; }
-
         /* --- BUTTONS --- */
         .btn {
             background: var(--primary); color: #000; padding: 18px 45px; border-radius: 50px;
             text-decoration: none; font-weight: 900; display: inline-block; transition: 0.3s;
-            box-shadow: 0 0 20px var(--primary-glow);
+            box-shadow: 0 0 20px var(--primary-glow); border: none; cursor: pointer;
         }
         .btn:hover { transform: scale(1.05); background: #fff; }
 
-        /* DARK MODE SWITCH */
         #ghost-switch {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
             background: var(--card-bg); border: 1px solid var(--primary); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5000;
         }
+
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px; }
+        .team-member { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 15px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .role-tag { font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; text-transform: uppercase; font-weight: bold; }
 
         footer { padding: 60px; text-align: center; color: #444; border-top: 1px solid #111; }
     </style>
@@ -104,42 +116,52 @@
 <div id="cursor"></div>
 <div id="ghost-switch" onclick="toggleGhostMode()">🌲</div>
 
+<div id="work-modal">
+    <div class="modal-box">
+        <h2 style="color: var(--primary); letter-spacing: 2px;">BAUSTELLE 🏗️</h2>
+        <p style="margin: 20px 0; color: #ccc;">Das Spiel Waldersreuth befindet sich aktuell in der aktiven Entwicklung. Ein Roblox-Link wird hier erscheinen, sobald die Tore des Dorfes öffnen!</p>
+        <button class="btn" onclick="closeModal()">VERSTANDEN</button>
+    </div>
+</div>
+
 <div id="loader">
     <h2 style="letter-spacing: 10px; color: #fff;">WALDERSREUTH</h2>
     <div class="loader-bar-container"><div class="loader-bar" id="l-bar"></div></div>
 </div>
 
 <header>
-    <div style="border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; margin-bottom: 20px;">ROBLOX HARDCORE RP</div>
+    <div style="border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; margin-bottom: 20px; letter-spacing: 1px;">ROBLOX DORF-RP</div>
     <h1>Waldersreuth</h1>
-    <div id="liveCounter" style="color: var(--primary); font-weight: bold; margin-top: 20px;">VERBINDUNG WIRD HERGESTELLT...</div>
-    <a href="#about" class="btn" style="margin-top: 40px;">ERKUNDEN</a>
+    <div id="liveCounter" style="color: var(--primary); font-weight: bold; margin-top: 20px;">LADE DORF-DATEN...</div>
+    <button class="btn" style="margin-top: 40px;" onclick="openModal()">ERKUNDEN</button>
 </header>
 
 <div class="container" id="about">
     <div class="grid">
         <div class="card reveal">
-            <h3>🌲 Die Umgebung</h3>
-            <p>Dichte Wälder, versteckte Pfade und ein Dorf, das niemals schläft. Entdecke eine Karte voller Details.</p>
+            <h3>🏡 Das Dorfleben</h3>
+            <p>Ein gemütliches Miteinander steht im Fokus. Gründe eine Familie, kaufe ein Haus oder genieße die Natur.</p>
         </div>
         <div class="card reveal">
-            <h3>⚖️ Hardcore Regelwerk</h3>
-            <p>Deine Taten haben Konsequenzen. Ein realistisches Wirtschaftssystem und Fraktions-RP warten auf dich.</p>
+            <h3>🎭 Authentisches RP</h3>
+            <p>Kein Hardcore-Zwang, sondern echter Spielspaß. Deine Geschichte zählt in unserem kleinen Dorf.</p>
         </div>
         <div class="card reveal">
-            <h3>🛠️ Custom Scripts</h3>
-            <p>Exklusive Roblox-Systeme, die du auf keinem anderen Server findest. Alles für dein Immersions-Erlebnis.</p>
+            <h3>🌲 Umgebung</h3>
+            <p>Von dichten Tannenwäldern bis hin zum belebten Marktplatz – Waldersreuth bietet Platz für jeden.</p>
         </div>
     </div>
 </div>
 
 <section class="map-section reveal">
-    <h2>Entdecke die Orte</h2>
-    <div class="map-placeholder">
-        <div class="map-point" style="top: 20%; left: 30%;" onclick="alert('Das Sägewerk: Arbeitsplatz für harte Kerle.')"></div>
-        <div class="map-point" style="top: 50%; left: 50%;" onclick="alert('Dorfzentrum: Hier trifft sich die Gemeinschaft.')"></div>
-        <div class="map-point" style="top: 70%; left: 80%;" onclick="alert('Der Außenposten: Nur für Mutige.')"></div>
-        <p style="margin-top: 200px; opacity: 0.5;">[ Interaktive Gebietskarte ]</p>
+    <h2>Karte von Waldersreuth</h2>
+    <div class="map-locked">
+        <div class="scanlines"></div>
+        <div class="lock-content">
+            <div style="font-size: 3rem;">🔒</div>
+            <h3 style="letter-spacing: 5px; color: var(--primary);">VERSCHLÜSSELT</h3>
+            <p style="opacity: 0.6; font-size: 0.9rem; margin-top: 10px;">Datenfreigabe erfolgt nach Abschluss der Bauarbeiten.</p>
+        </div>
     </div>
 </section>
 
@@ -149,15 +171,19 @@
 </div>
 
 <div class="container reveal" style="text-align: center; padding-bottom: 100px;">
-    <h2>Werde Teil der Geschichte</h2>
+    <h2>Werde Teil der Gemeinschaft</h2>
     <a href="https://discord.gg/QX5xj22dGW" class="btn">DEM DISCORD BEITRETEN</a>
 </div>
 
 <footer>
-    © 2026 Waldersreuth Project | Offizielle Website
+    © 2026 Waldersreuth Project | Offizielles Portal
 </footer>
 
 <script>
+    // --- MODAL LOGIK ---
+    function openModal() { document.getElementById('work-modal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('work-modal').style.display = 'none'; }
+
     // --- LOADER & PARTIKEL ---
     function createTree() {
         const loader = document.getElementById('loader');
@@ -233,9 +259,9 @@
         try {
             const r = await fetch("https://discord.com/api/guilds/1477240537693028414/widget.json");
             const d = await r.json();
-            document.getElementById("liveCounter").innerHTML = `🟢 ${d.presence_count} BÜRGER IM WALD`;
+            document.getElementById("liveCounter").innerHTML = `🟢 ${d.presence_count} BÜRGER IM DORF`;
         } catch (e) {
-            document.getElementById("liveCounter").innerHTML = `🟢 SERVER STATUS: ONLINE`;
+            document.getElementById("liveCounter").innerHTML = `🟢 STATUS: ENTWICKLUNG`;
         }
     }
     updateCounter();
