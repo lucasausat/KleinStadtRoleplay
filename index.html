@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waldersreuth RP | Dorfleben auf Roblox</title>
+    <title>Königsbrunn RP | Das Kleinstadt-Erlebnis</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -41,16 +41,16 @@
         .loader-bar-container { width: 250px; height: 2px; background: #222; margin-top: 20px; overflow: hidden; }
         .loader-bar { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s ease; }
 
-        /* --- MODAL (HINWEIS FENSTER) --- */
+        /* --- MODAL (BAUSTELLEN MELDUNG) --- */
         #work-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 9000; display: none;
-            align-items: center; justify-content: center; backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.92); z-index: 9000; display: none;
+            align-items: center; justify-content: center; backdrop-filter: blur(10px);
         }
         .modal-box {
             background: var(--card-bg); padding: 40px; border: 2px solid var(--primary);
             border-radius: 20px; text-align: center; max-width: 450px;
-            box-shadow: 0 0 30px var(--primary-glow);
+            box-shadow: 0 0 40px var(--primary-glow);
         }
 
         /* --- HERO --- */
@@ -60,7 +60,7 @@
             background-size: cover; background-position: center; background-attachment: fixed;
         }
         h1 {
-            font-size: clamp(3rem, 12vw, 7.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 20px;
+            font-size: clamp(2.5rem, 10vw, 7rem); font-weight: 900; text-transform: uppercase; letter-spacing: 15px;
             background: linear-gradient(to bottom, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 0 30px var(--primary-glow));
         }
@@ -68,17 +68,19 @@
         /* --- VERSCHLÜSSELTE KARTE --- */
         .map-section { padding: 100px 20px; text-align: center; }
         .map-locked {
-            max-width: 800px; margin: 40px auto; height: 400px;
-            background: #111; border: 1px solid var(--primary);
+            max-width: 900px; margin: 40px auto; height: 450px;
+            background: #0a0a0a; border: 1px solid var(--primary);
             border-radius: 20px; position: relative; overflow: hidden;
             display: flex; align-items: center; justify-content: center;
+            box-shadow: inset 0 0 50px #000;
         }
         .scanlines {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-linear-gradient(rgba(18, 16, 16, 0) 0, rgba(10, 10, 10, 0.5) 50%, rgba(18, 16, 16, 0) 100%);
-            background-size: 100% 4px; pointer-events: none; z-index: 2;
+            background: repeating-linear-gradient(rgba(18, 16, 16, 0) 0, rgba(46, 204, 113, 0.1) 50%, rgba(18, 16, 16, 0) 100%);
+            background-size: 100% 4px; pointer-events: none; z-index: 2; animation: scan 10s linear infinite;
         }
-        .lock-content { z-index: 3; text-align: center; }
+        @keyframes scan { from { background-position: 0 0; } to { background-position: 0 100%; } }
+        .lock-content { z-index: 3; text-align: center; backdrop-filter: blur(15px); padding: 30px; border-radius: 20px; }
 
         /* --- GRID & CARDS --- */
         .container { max-width: 1200px; margin: auto; padding: 60px 20px; }
@@ -118,49 +120,51 @@
 
 <div id="work-modal">
     <div class="modal-box">
-        <h2 style="color: var(--primary); letter-spacing: 2px;">BAUSTELLE 🏗️</h2>
-        <p style="margin: 20px 0; color: #ccc;">Das Spiel Waldersreuth befindet sich aktuell in der aktiven Entwicklung. Ein Roblox-Link wird hier erscheinen, sobald die Tore des Dorfes öffnen!</p>
-        <button class="btn" onclick="closeModal()">VERSTANDEN</button>
+        <h2 style="color: var(--primary); letter-spacing: 2px; margin-bottom: 15px;">PROJEKT IN ARBEIT 🏗️</h2>
+        <p style="color: #ccc; margin-bottom: 25px;">Willkommen in der Planungsphase von <b>Königsbrunn</b>. Das Game ist aktuell in Arbeit.<br><br>Der Roblox Link kommt demnächst!</p>
+        <button class="btn" onclick="closeModal()">Verstanden</button>
     </div>
 </div>
 
 <div id="loader">
-    <h2 style="letter-spacing: 10px; color: #fff;">WALDERSREUTH</h2>
+    <h2 style="letter-spacing: 10px; color: #fff;">KÖNIGSBRUNN</h2>
     <div class="loader-bar-container"><div class="loader-bar" id="l-bar"></div></div>
 </div>
 
 <header>
-    <div style="border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; margin-bottom: 20px; letter-spacing: 1px;">ROBLOX DORF-RP</div>
-    <h1>Waldersreuth</h1>
-    <div id="liveCounter" style="color: var(--primary); font-weight: bold; margin-top: 20px;">LADE DORF-DATEN...</div>
+    <div style="border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; margin-bottom: 20px; letter-spacing: 2px;">50KM² KLEINSTADT RP</div>
+    <h1>Königsbrunn</h1>
+    <div id="liveCounter" style="color: var(--primary); font-weight: bold; margin-top: 20px;">INITIALISIERE INFRASTRUKTUR...</div>
     <button class="btn" style="margin-top: 40px;" onclick="openModal()">ERKUNDEN</button>
 </header>
 
 <div class="container" id="about">
     <div class="grid">
         <div class="card reveal">
-            <h3>🏡 Das Dorfleben</h3>
-            <p>Ein gemütliches Miteinander steht im Fokus. Gründe eine Familie, kaufe ein Haus oder genieße die Natur.</p>
+            <h3>🏙️ Die Kleinstadt</h3>
+            <p>Erlebe eine riesige, detaillierte Karte. Von modernen Wohnvierteln bis hin zu weitläufigen Landstrichen bietet Königsbrunn alles.</p>
         </div>
         <div class="card reveal">
-            <h3>🎭 Authentisches RP</h3>
-            <p>Kein Hardcore-Zwang, sondern echter Spielspaß. Deine Geschichte zählt in unserem kleinen Dorf.</p>
+            <h3>🎭 Reines Roleplay</h3>
+            <p>Wir setzen auf Immersion. Tauche ein in ein authentisches Leben, in dem deine Entscheidungen den Alltag prägen.</p>
         </div>
         <div class="card reveal">
-            <h3>🌲 Umgebung</h3>
-            <p>Von dichten Tannenwäldern bis hin zum belebten Marktplatz – Waldersreuth bietet Platz für jeden.</p>
+            <h3>📏 Massive Fläche</h3>
+            <p>Mit über 50km² bespielbarer Fläche gibt es immer etwas Neues zu entdecken – perfekt für Erkunder und Entdecker.</p>
         </div>
     </div>
 </div>
 
 <section class="map-section reveal">
-    <h2>Karte von Waldersreuth</h2>
+    <h2>Stadtplan von Königsbrunn</h2>
     <div class="map-locked">
         <div class="scanlines"></div>
         <div class="lock-content">
-            <div style="font-size: 3rem;">🔒</div>
-            <h3 style="letter-spacing: 5px; color: var(--primary);">VERSCHLÜSSELT</h3>
-            <p style="opacity: 0.6; font-size: 0.9rem; margin-top: 10px;">Datenfreigabe erfolgt nach Abschluss der Bauarbeiten.</p>
+            <div style="font-size: 4rem; margin-bottom: 10px;">🔒</div>
+            <h3 style="letter-spacing: 8px; color: var(--primary); text-transform: uppercase;">Daten Verschlüsselt</h3>
+            <p style="opacity: 0.7; font-size: 0.9rem; margin-top: 15px; max-width: 400px; margin-left: auto; margin-right: auto;">
+                Der Zugriff auf topografische Daten ist während der Bauphase gesperrt. Karten-Update folgt mit Release.
+            </p>
         </div>
     </div>
 </section>
@@ -171,16 +175,16 @@
 </div>
 
 <div class="container reveal" style="text-align: center; padding-bottom: 100px;">
-    <h2>Werde Teil der Gemeinschaft</h2>
+    <h2>Werde Teil der Entwicklung</h2>
     <a href="https://discord.gg/QX5xj22dGW" class="btn">DEM DISCORD BEITRETEN</a>
 </div>
 
 <footer>
-    © 2026 Waldersreuth Project | Offizielles Portal
+    © 2026 Königsbrunn RP Project | Offizielles Portal
 </footer>
 
 <script>
-    // --- MODAL LOGIK ---
+    // --- MODAL FUNKTIONEN ---
     function openModal() { document.getElementById('work-modal').style.display = 'flex'; }
     function closeModal() { document.getElementById('work-modal').style.display = 'none'; }
 
@@ -202,13 +206,13 @@
         let bar = document.getElementById('l-bar');
         let w = 0;
         let int = setInterval(() => {
-            w += Math.random() * 30;
+            w += Math.random() * 25;
             if(w >= 100) {
                 w = 100; clearInterval(int); clearInterval(partInt);
                 setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 500);
             }
             bar.style.width = w + '%';
-        }, 200);
+        }, 150);
     };
 
     // --- CURSOR ---
@@ -259,7 +263,7 @@
         try {
             const r = await fetch("https://discord.com/api/guilds/1477240537693028414/widget.json");
             const d = await r.json();
-            document.getElementById("liveCounter").innerHTML = `🟢 ${d.presence_count} BÜRGER IM DORF`;
+            document.getElementById("liveCounter").innerHTML = `🟢 ${d.presence_count} BÜRGER IN DER STADT`;
         } catch (e) {
             document.getElementById("liveCounter").innerHTML = `🟢 STATUS: ENTWICKLUNG`;
         }
