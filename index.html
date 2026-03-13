@@ -16,6 +16,22 @@
             --text-main: #e0e0e0;
         }
 
+        /* --- 3. GLASSMORPHISM SCROLLBAR --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 2px solid var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
         body { 
             font-family: 'Inter', sans-serif; 
@@ -68,15 +84,25 @@
         
         .hero-desc { max-width: 600px; font-size: 1.1rem; color: #888; margin-bottom: 40px; font-weight: 300; }
 
-        /* --- BUTTONS --- */
+        /* --- 4. ANIMATED CALL-TO-ACTION (CTA) --- */
         .btn-group { display: flex; gap: 15px; }
         .btn {
             padding: 16px 35px; border-radius: 6px; font-weight: 700; font-size: 0.85rem;
             text-decoration: none; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer;
         }
-        .btn-primary { background: var(--gradient); color: #fff; border: none; box-shadow: 0 10px 20px rgba(0, 98, 255, 0.2); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 98, 255, 0.4); }
+        .btn-primary { 
+            background: var(--gradient); color: #fff; border: none; 
+            box-shadow: 0 10px 20px rgba(0, 98, 255, 0.2); 
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(0, 98, 255, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 98, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 98, 255, 0); }
+        }
+        .btn-primary:hover { transform: translateY(-3px); scale: 1.05; }
         .btn-outline { border: 1px solid var(--border); color: #fff; background: rgba(255,255,255,0.02); }
         .btn-outline:hover { background: rgba(255,255,255,0.08); border-color: #666; }
 
@@ -92,20 +118,34 @@
         .card h3 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; margin-bottom: 15px; color: #fff; }
         .card p { color: #888; font-size: 0.95rem; }
 
-        /* --- TEAM DESIGN --- */
+        /* --- 1. INTERAKTIVE TEAM-PROFILE (DISCORD-STYLE) --- */
         .team-title { font-family: 'Montserrat', sans-serif; text-align: center; margin-bottom: 60px; font-size: 2rem; }
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
         
         .team-member {
             background: var(--card-bg); border: 1px solid var(--border);
             padding: 30px; border-radius: 12px; text-align: center; transition: 0.3s;
+            position: relative; overflow: hidden;
         }
-        .team-member:hover { background: #0a0e14; border-color: #333; }
-        .name { display: block; font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 8px; }
+        .team-member:hover { 
+            background: rgba(255, 255, 255, 0.05); 
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px);
+        }
+        .team-member::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(0, 98, 255, 0.05) 0%, transparent 70%);
+            opacity: 0; transition: 0.3s; pointer-events: none;
+        }
+        .team-member:hover::after { opacity: 1; }
+
+        .name { display: block; font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 8px; z-index: 2; position: relative; }
         
         .badge {
             font-size: 0.65rem; padding: 4px 12px; border-radius: 20px;
             font-weight: 900; text-transform: uppercase; letter-spacing: 1px;
+            z-index: 2; position: relative;
         }
         .badge-owner { background: rgba(255, 60, 60, 0.1); color: #ff3c3c; border: 1px solid rgba(255, 60, 60, 0.2); }
         .badge-lead { background: rgba(0, 229, 255, 0.1); color: var(--secondary); border: 1px solid rgba(0, 229, 255, 0.2); }
@@ -137,8 +177,8 @@
     <p class="hero-desc">Erlebe eine detailreiche Welt auf Roblox. Königsbrunn kombiniert Performance mit grenzenlosem Gameplay.</p>
     
     <div class="btn-group">
-        <a href="https://discord.gg/QX5xj22dGW" class="btn btn-primary">DISCORD BEITRETEN</a>
-        <a href="#features" class="btn btn-outline">FEATURES</a>
+        <a href="https://discord.gg/QX5xj22dGW" class="btn btn-primary" style="cursor: pointer;">DISCORD BEITRETEN</a>
+        <a href="#features" class="btn btn-outline" style="cursor: pointer;">FEATURES</a>
     </div>
 </header>
 
@@ -192,7 +232,7 @@
         setTimeout(() => {
             loader.style.opacity = '0';
             setTimeout(() => loader.style.display = 'none', 800);
-        }, 1200); // Zeigt den coolen Loader für ca. 1.2 Sek
+        }, 1200); 
     });
 
     // Scroll Reveal
