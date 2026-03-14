@@ -1,277 +1,312 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Königsbrunn City RP | Projekt-Zentrum</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Königsbrunn City | Projekt-Zentrum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #05070a;
+            --surface: #0d1117;
+            --primary: #3b82f6; /* Modernes Blau */
+            --accent: #60a5fa;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass: rgba(13, 17, 23, 0.8);
+            --border: rgba(255, 255, 255, 0.05);
+        }
 
-<style>
-:root {
-    --primary: #1a56b3;
-    --accent: #00d4ff;
-    --dark-bg: #030508;
-    --card-bg: #0a0e17;
-    --text-main: #e1e4e8;
-    --text-dim: #8b949e;
-    --border-color: #1f2937;
-    --disabled: #161b22;
-    --blue-gradient: linear-gradient(90deg, #00d4ff, #1a56b3, #00d4ff);
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* Reset & Basics */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--dark-bg);
-    color: var(--text-main);
-    line-height: 1.7;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-}
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-/* LED Animation */
-@keyframes ledFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-.led-text {
-    background: var(--blue-gradient);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: ledFlow 4s linear infinite;
-    font-weight: 800;
-}
+        /* --- Header & Navigation --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            background: var(--glass);
+            border-bottom: 1px solid var(--border);
+        }
 
-/* Navbar */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 8%;
-    background: rgba(3,5,8,0.95);
-    border-bottom: 1px solid var(--border-color);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    backdrop-filter: blur(4px);
-}
-.logo { font-size: 1.2rem; font-weight: 800; letter-spacing: 2px; }
-.nav-links { display: flex; gap: 30px; }
-.nav-links a { text-decoration: none; color: var(--text-dim); font-size: 0.9rem; font-weight: 500; transition: color 0.3s, transform 0.2s; }
-.nav-links a.active { color: var(--accent); font-weight: 700; }
-.nav-links a:hover { color: var(--accent); transform: scale(1.05); }
+        .logo {
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -1px;
+            color: var(--text-main);
+        }
 
-/* Hero Section */
-header {
-    height: 600px;
-    position: relative;
-    background: linear-gradient(rgba(3,5,8,0.85), rgba(3,5,8,0.95)), url("https://images.unsplash.com/photo-1605902711622-cfb43c44367f?q=80&w=1800") center/cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 20px;
-    overflow: hidden;
-}
-header h1 { font-size: 3.5rem; margin-bottom: 15px; }
-header p { max-width: 700px; color: var(--text-dim); margin-bottom: 35px; }
+        .logo span { color: var(--primary); }
 
-/* Particles Canvas */
-#particles {
-    position: absolute;
-    top:0; left:0; width:100%; height:100%;
-    pointer-events: none;
-    z-index: 0;
-}
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
 
-/* Buttons */
-.btn-group { display: flex; gap: 20px; z-index:1; position: relative; }
-.btn {
-    padding: 14px 28px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: 0.3s;
-    border: none;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-.btn-disabled {
-    background: var(--disabled);
-    color: #484f58;
-    border: 1px solid var(--border-color);
-    cursor: not-allowed;
-}
-.btn-outline {
-    border: 1px solid var(--primary);
-    color: var(--accent);
-    background: transparent;
-}
-.btn-outline:hover { background: rgba(26,86,179,0.15); transform: scale(1.08); box-shadow: 0 0 15px var(--accent); }
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 40%);
+        }
 
-/* Main Content */
-.container { max-width: 1100px; margin: auto; padding: 100px 20px; }
-.section-head { margin-bottom: 50px; }
-.section-head h2 { font-size: 2rem; border-left: 4px solid var(--primary); padding-left: 20px; }
+        .hero-label {
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+        }
 
-/* Grid + Card Animations */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-.card {
-    background: var(--card-bg);
-    padding: 35px;
-    border: 1px solid var(--border-color);
-    transition: 0.5s;
-    opacity: 0;
-    transform: translateY(50px);
-}
-.card.show { opacity:1; transform: translateY(0); transition: 0.6s ease-out; }
-.card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 0 20px rgba(0,212,255,0.3); }
-.card h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.3rem; }
-.card p { color: var(--text-dim); font-size: 0.95rem; }
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
+            font-weight: 800;
+            margin-bottom: 30px;
+            max-width: 900px;
+        }
 
-/* Info Blocks */
-.info-block { margin-top: 100px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 40px; opacity:0; transform: translateY(50px); transition: 0.6s ease-out; }
-.info-block.show { opacity:1; transform: translateY(0); }
-.info-list { list-style: none; margin-top: 20px; }
-.info-list li { padding: 15px 0; border-bottom: 1px solid var(--border-color); color: var(--text-dim); font-size: 0.9rem; }
-.info-list li strong { color: var(--text-main); display: block; margin-bottom: 5px; }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
 
-/* Footer */
-footer {
-    padding: 60px 20px;
-    background: #010409;
-    text-align: center;
-    border-top: 1px solid var(--border-color);
-}
-footer p { font-size: 0.8rem; color: #484f58; }
+        /* --- Buttons --- */
+        .btn-group { display: flex; gap: 20px; }
+        .btn {
+            padding: 18px 35px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1rem;
+        }
 
-</style>
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+
+        /* --- Content Sections --- */
+        section { padding: 120px 10%; }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            font-weight: 800;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 50px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* --- Status Section --- */
+        .status-box {
+            background: linear-gradient(145deg, var(--surface), #080a0f);
+            padding: 60px;
+            border-radius: 32px;
+            border: 1px solid var(--border);
+        }
+
+        .status-list { list-style: none; }
+        .status-item {
+            padding: 25px 0;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            align-items: center;
+        }
+
+        .status-item:last-child { border: none; }
+        .status-label { font-weight: 600; color: var(--primary); }
+        .status-desc { color: var(--text-muted); }
+
+        /* --- Footer --- */
+        footer {
+            padding: 80px 10%;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .status-item { grid-template-columns: 1fr; gap: 10px; }
+            .hero h1 { font-size: 3.5rem; }
+        }
+    </style>
 </head>
 <body>
 
 <nav>
-    <div class="logo led-text">KÖNIGSBRUNN INTERFACE</div>
+    <div class="logo">KÖNIGS<span>BRUNN</span></div>
     <div class="nav-links">
-        <a href="#stadt" class="active">System-Informationen</a>
-        <a href="#status">Projekt-Status</a>
-        <a href="https://discord.gg/qg4gYuxUgx">Discord-Server</a>
+        <a href="#vision">Vision</a>
+        <a href="#struktur">Struktur</a>
+        <a href="#status">Status</a>
+        <a href="https://discord.gg/qg4gYuxUgx">Community</a>
     </div>
 </nav>
 
-<header>
-    <canvas id="particles"></canvas>
-    <h1 class="led-text">KÖNIGSBRUNN CITY RP</h1>
-    <p>Infrastruktur und Simulationsebene der deutschen Rollenspiel-Umgebung innerhalb der Roblox-Plattform. Aktuell in der geschlossenen Entwicklungsphase.</p>
-    <div class="btn-group">
-        <button class="btn btn-disabled">Zugriff gesperrt</button>
-        <a href="https://discord.gg/qg4gYuxUgx" class="btn btn-outline">Externer Discord</a>
-    </div>
-</header>
+<main>
+    <section class="hero">
+        <div class="hero-label">Alpha Phase // 2026</div>
+        <h1>Das neue Maßstab im <span style="color: var(--primary);">Roleplay.</span></h1>
+        <p>Erlebe eine bis ins Detail simulierte Stadtstruktur auf der Luau-Engine. Professionalität trifft auf Spielspaß.</p>
+        <div class="btn-group">
+            <a href="https://discord.gg/qg4gYuxUgx" class="btn btn-primary">Discord beitreten</a>
+            <a href="#status" class="btn btn-secondary">Projekt-Status</a>
+        </div>
+    </section>
 
-<div class="container" id="stadt">
-    <div class="section-head">
-        <h2>STADTSTRUKTUR</h2>
-    </div>
-    <div class="grid">
-        <div class="card">
-            <h3>Öffentlicher Sektor</h3>
-            <p>Die administrative Verwaltung umfasst das Meldewesen, die Gewerbeaufsicht sowie die zivile Stadtplanung zur Gewährleistung geordneter Abläufe.</p>
+    <section id="struktur" class="reveal">
+        <h2 class="section-title">Die Struktur</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">01</div>
+                <h3>Verwaltung</h3>
+                <p>Ein smartes System für Gewerbe, Wohnsitz und Identität. Alles zentral gesteuert für maximalen Realismus.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">02</div>
+                <h3>Sicherheit</h3>
+                <p>Modernste Exekutiv-Tools für die Polizei. Prävention und taktisches Vorgehen stehen im Vordergrund.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">03</div>
+                <h3>Medizin</h3>
+                <p>Ein logistikbasiertes Rettungswesen, das mehr ist als nur "Heilen". Echte Notfallsimulation.</p>
+            </div>
         </div>
-        <div class="card">
-            <h3>Exekutivgewalt</h3>
-            <p>Das Sicherheitsmanagement obliegt der polizeilichen Abteilung. Fokus liegt auf der Verkehrsüberwachung und der präventiven Kriminalitätsbekämpfung.</p>
-        </div>
-        <div class="card">
-            <h3>Medizinische Logistik</h3>
-            <p>Das Notfallmanagementsystem koordiniert medizinische Einsätze und stellt die Grundversorgung im gesamten Stadtgebiet sicher.</p>
-        </div>
-    </div>
+    </section>
 
-    <div class="info-block" id="status">
-        <h3>PROJEKT-SPEZIFIKATIONEN</h3>
-        <ul class="info-list">
-            <li><strong>Entwicklungsstadium: Alpha-Phase</strong> Die Architektur der Kern-Systeme wird derzeit implementiert. Ein öffentlicher Zugriff auf die Spielinstanz ist momentan nicht vorgesehen.</li>
-            <li><strong>Bewerbungssystem: Inaktiv</strong> Das automatisierte Bewerbungsverfahren für Fraktionsleitungen, Support-Positionen und Entwickler-Rollen ist bis zur Erreichung des Meilensteins 'Beta' deaktiviert.</li>
-            <li><strong>Anforderungen für zukünftige Mitwirkung</strong> Mindestalter 16 Jahre, fehlerfreie deutsche Ausdrucksweise, dokumentierte Historie innerhalb vergleichbarer Projekte.</li>
-            <li><strong>Technische Basis</strong> Optimierung der Skripte auf Luau-Basis zur Gewährleistung maximaler Performance bei hoher Spielerlast.</li>
-        </ul>
-    </div>
-
-    <div class="info-block" style="text-align: center; border-color: var(--primary);">
-        <h3 class="led-text">ZUGANGSDATEN</h3>
-        <p style="margin-top: 15px; font-size: 0.9rem;">Sämtliche Kommunikation und Status-Updates erfolgen verschlüsselt über den Discord-Dienst.</p>
-        <div style="margin-top: 25px;">
-            <button class="btn btn-disabled">Portal gesperrt</button>
+    <section id="status" class="reveal">
+        <div class="status-box">
+            <h2 class="section-title" style="margin-bottom: 40px;">Spezifikationen</h2>
+            <div class="status-list">
+                <div class="status-item">
+                    <div class="status-label">Entwicklungsstand</div>
+                    <div class="status-desc">Aktuell in der geschlossenen Alpha. Wir polieren die Core-Scripts.</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Bewerbungen</div>
+                    <div class="status-desc">Derzeit pausiert. Fokus liegt auf der technischen Infrastruktur.</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Technik</div>
+                    <div class="status-desc">Optimiertes Luau-Backend für laggfreies Gaming bei 100+ Spielern.</div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    </section>
+</main>
 
 <footer>
-    <p>&copy; 2026 KÖNIGSBRUNN CITY ROLEPLAY. FIKTIVES PROJEKT ZU UNTERHALTUNGSZWECKEN. KEINE VERBINDUNG ZUR ROBLOX CORPORATION ODER REALEN BEHÖRDEN.</p>
+    <p>&copy; 2026 Königsbrunn City Roleplay. Ein fiktives Simulationsprojekt.<br>Unabhängig von der Roblox Corporation.</p>
 </footer>
 
 <script>
-// Scroll Animation für Cards & Info-Blocks
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting){ entry.target.classList.add('show'); }
-    });
-}, { threshold: 0.2 });
-document.querySelectorAll('.card, .info-block').forEach(el => observer.observe(el));
+    // Reveal Animation beim Scrollen
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
 
-// Partikel-Hintergrund
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight/2;
-const particlesArray = [];
-const colors = ['#00d4ff','#1a56b3','#00ffff'];
-
-class Particle {
-    constructor(){
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random()*3+1;
-        this.speedX = Math.random()*0.5-0.25;
-        this.speedY = Math.random()*0.5-0.25;
-        this.color = colors[Math.floor(Math.random()*colors.length)];
-    }
-    update(){
-        this.x += this.speedX; this.y += this.speedY;
-        if(this.x>canvas.width) this.x=0;
-        if(this.x<0) this.x=canvas.width;
-        if(this.y>canvas.height) this.y=0;
-        if(this.y<0) this.y=canvas.height;
-    }
-    draw(){
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-        ctx.fill();
-    }
-}
-
-function initParticles(){ for(let i=0;i<100;i++){ particlesArray.push(new Particle()); } }
-function animateParticles(){ ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>{ p.update(); p.draw(); }); requestAnimationFrame(animateParticles); }
-initParticles(); animateParticles();
-
-// Scroll-Spy Navbar
-const sections = document.querySelectorAll('header, .container > div.section-head, .info-block');
-const navLinks = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        if(pageYOffset >= sectionTop){ current = section.getAttribute('id'); }
-    });
-    navLinks.forEach(a => { a.classList.remove('active'); if(a.getAttribute('href') === '#' + current){ a.classList.add('active'); } });
-});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
 </body>
