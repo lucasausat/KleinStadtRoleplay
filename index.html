@@ -3,365 +3,364 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Königsbrunn City RP | Roblox Roleplay</title>
-
+<title>Königsbrunn City RP | Projekt-Status</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-
-:root{
---primary:#2f7df6;
---accent:#00e0ff;
---dark:#0b0f18;
---card:#121826;
---text:#e6e9f0;
+:root {
+    --primary: #2f7df6;
+    --accent: #00e0ff;
+    --dark: #0b0f18;
+    --card: #121826;
+    --text: #e6e9f0;
+    --disabled: #333a45;
 }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
-body{
-font-family:'Inter',sans-serif;
-background:var(--dark);
-color:var(--text);
-overflow-x:hidden;
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    line-height: 1.6;
 }
 
 /* NAVBAR */
-
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 8%;
-background:rgba(0,0,0,0.6);
-backdrop-filter:blur(10px);
-position:sticky;
-top:0;
-z-index:100;
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 8%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.logo{
-font-weight:800;
-font-size:1.3rem;
-color:white;
-letter-spacing:1px;
+.logo {
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
 }
 
-.nav-links{
-display:flex;
-gap:25px;
+.nav-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
 }
 
-.nav-links a{
-text-decoration:none;
-color:#aaa;
-font-weight:500;
-transition:0.2s;
+.nav-links a {
+    text-decoration: none;
+    color: #aaa;
+    font-weight: 500;
+    transition: 0.2s;
 }
 
-.nav-links a:hover{
-color:var(--accent);
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+.nav-links a.disabled-link {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* BURGER MENU */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: white;
 }
 
 /* HERO */
-
-header{
-height:520px;
-
-background:
-linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
-url("https://images.unsplash.com/photo-1605902711622-cfb43c44367f?q=80&w=1800") center/cover;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
+header {
+    height: 600px;
+    background: linear-gradient(rgba(11, 15, 24, 0.8), rgba(11, 15, 24, 0.8)),
+                url("https://images.unsplash.com/photo-1605902711622-cfb43c44367f?q=80&w=1800") center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
 }
 
-header h1{
-font-size:3.2rem;
-font-weight:800;
-margin-bottom:10px;
+header h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 15px;
 }
 
-header span{
-color:var(--accent);
+header span { color: var(--accent); }
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-header p{
-opacity:0.8;
-margin-bottom:25px;
+/* BUTTONS */
+.btn {
+    padding: 14px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
 }
 
-.hero-buttons{
-display:flex;
-gap:15px;
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: #1a66d6; }
+
+.btn-outline { border: 2px solid var(--accent); color: var(--accent); }
+.btn-outline:hover { background: var(--accent); color: black; }
+
+.btn-disabled {
+    background: var(--disabled) !important;
+    color: #777 !important;
+    cursor: not-allowed !important;
+    border: none !important;
 }
 
-.btn{
-padding:12px 22px;
-border-radius:8px;
-text-decoration:none;
-font-weight:600;
-transition:0.25s;
+/* CONTENT BOXES */
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 80px 20px;
 }
 
-.btn-primary{
-background:var(--primary);
-color:white;
+.section-title {
+    margin-bottom: 40px;
+    font-size: 2rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 15px;
 }
 
-.btn-primary:hover{
-background:var(--accent);
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
 }
 
-.btn-outline{
-border:2px solid var(--accent);
-color:var(--accent);
+.card {
+    background: var(--card);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
 }
 
-.btn-outline:hover{
-background:var(--accent);
-color:black;
+/* STATUS BAR */
+.status-bar {
+    background: #1a2233;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 50px;
+    border: 1px solid var(--primary);
 }
 
-/* SECTION */
-
-.container{
-max-width:1200px;
-margin:auto;
-padding:80px 20px;
+.status-item span {
+    display: block;
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
 }
 
-/* GRID */
+.status-item strong { color: var(--accent); }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:30px;
+/* FAQ ACCORDION */
+details {
+    background: var(--card);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
 }
 
-.card{
-background:var(--card);
-padding:28px;
-border-radius:14px;
-transition:0.25s;
-border:1px solid rgba(255,255,255,0.05);
+summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--accent);
+    list-style: none;
 }
 
-.card:hover{
-transform:translateY(-8px);
-box-shadow:0 0 20px rgba(0,224,255,0.3);
+/* TEAM */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
 
-.card h3{
-margin-bottom:10px;
-color:var(--accent);
+.team-member {
+    background: var(--card);
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
 }
 
-/* NEWS */
-
-.news{
-margin-top:70px;
+.team-member img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 2px solid var(--accent);
+    background: var(--dark);
 }
 
-.news-item{
-background:var(--card);
-padding:20px;
-margin-bottom:15px;
-border-left:4px solid var(--accent);
-border-radius:6px;
+.team-member .name {
+    display: block;
+    font-weight: 800;
+    font-size: 1.1rem;
 }
 
-/* COMMUNITY SECTION */
-
-.community{
-text-align:center;
-margin-top:80px;
+.team-member .role {
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.community h2{
-margin-bottom:15px;
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--dark);
+        padding: 20px;
+    }
+    .nav-links.active { display: flex; }
+    .menu-toggle { display: flex; }
 }
-
-.community a{
-margin-top:15px;
-display:inline-block;
-}
-
-/* FOOTER */
-
-footer{
-background:black;
-text-align:center;
-padding:40px;
-margin-top:80px;
-color:#777;
-font-size:0.9rem;
-}
-
 </style>
-
 </head>
-
 <body>
 
 <nav>
-
-<div class="logo">KÖNIGSBRUNN RP</div>
-
-<div class="nav-links">
-<a href="#">Start</a>
-<a href="#bereiche">Stadt</a>
-<a href="#news">Updates</a>
-<a href="https://discord.gg/qg4gYuxUgx" target="_blank">Discord</a>
-</div>
-
+    <div class="logo">KÖNIGSBRUNN RP</div>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links">
+        <a href="#">Startseite</a>
+        <a href="#stadt">Informationen</a>
+        <a href="#" class="disabled-link">Updates (Gesperrt)</a>
+        <a href="https://discord.gg/qg4gYuxUgx">Discord</a>
+    </div>
 </nav>
 
 <header>
-
-<h1>Willkommen in <span>Königsbrunn City RP</span></h1>
-
-<p>Eine realistische deutsche Stadt im Roblox Roleplay Universum</p>
-
-<div class="hero-buttons">
-
-<a class="btn btn-primary" href="#">🎮 Spiel starten</a>
-
-<a class="btn btn-outline" href="https://discord.gg/qg4gYuxUgx" target="_blank">
-💬 Discord
-</a>
-
-</div>
-
+    <h1>Königsbrunn City <span>Roleplay</span></h1>
+    <p>Eine realistische Simulation des deutschen Stadtlebens in der Entwicklung.</p>
+    <div class="hero-buttons">
+        <a href="#" class="btn btn-disabled">Spiel startet bald</a>
+        <a href="https://discord.gg/qg4gYuxUgx" class="btn btn-outline">Community beitreten</a>
+    </div>
 </header>
 
 <div class="container">
+    <div class="status-bar">
+        <div class="status-item"><span>Server Status</span><strong>Offline (Entwicklung)</strong></div>
+        <div class="status-item"><span>Version</span><strong>Pre-Alpha 0.1</strong></div>
+        <div class="status-item"><span>Spieler</span><strong>0 / 0</strong></div>
+    </div>
 
-<h2 style="margin-bottom:30px;" id="bereiche">Stadtbereiche</h2>
+    <h2 class="section-title" id="stadt">Stadtbereiche</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Behörden und Verwaltung</h3>
+            <p>Das Rathaus bildet das Zentrum der Stadtverwaltung. Hier werden Ausweise ausgestellt und gewerbliche Anmeldungen bearbeitet.</p>
+        </div>
+        <div class="card">
+            <h3>Exekutive</h3>
+            <p>Die Polizei sorgt für die Einhaltung der Gesetze und die Sicherheit im öffentlichen Raum von Königsbrunn.</p>
+        </div>
+        <div class="card">
+            <h3>Medizinische Versorgung</h3>
+            <p>Der Rettungsdienst stellt die medizinische Notfallversorgung sowie den Krankentransport sicher.</p>
+        </div>
+    </div>
 
-<div class="grid">
+    <h2 class="section-title" style="margin-top:80px;">Projektleitung & Entwicklung</h2>
+    <div class="team-grid">
+        <div class="team-member">
+            <img src="https://www.roblox.com/headshot-thumbnail/image?userId=2325449083&width=150&height=150&format=png" alt="Avatar">
+            <span class="name">Top Management</span>
+            <div class="role">Projektleitung</div>
+        </div>
+        <div class="team-member">
+            <img src="https://www.roblox.com/headshot-thumbnail/image?userId=1728329662&width=150&height=150&format=png" alt="Avatar">
+            <span class="name">Joge</span>
+            <div class="role">Top Management</div>
+        </div>
+        <div class="team-member">
+            <img src="https://www.roblox.com/headshot-thumbnail/image?userId=6216761571&width=150&height=150&format=png" alt="Avatar">
+            <span class="name">Development Leitung</span>
+            <div class="role">Leitung Entwicklung</div>
+        </div>
+        <div class="team-member">
+            <img src="https://www.roblox.com/headshot-thumbnail/image?userId=9863289142&width=150&height=150&format=png" alt="Avatar">
+            <span class="name">Developer</span>
+            <div class="role">Entwicklung</div>
+        </div>
+    </div>
 
-<div class="card">
-<h3>🏛 Rathaus</h3>
-<p>Hier befindet sich die Stadtverwaltung und der Bürgermeister von Königsbrunn.</p>
-</div>
+    <h2 class="section-title" style="margin-top:80px;">Häufig gestellte Fragen</h2>
+    <details>
+        <summary>Wann ist der Release?</summary>
+        <p>Ein genaues Datum steht noch nicht fest. Informationen werden zuerst auf dem Discord-Server geteilt.</p>
+    </details>
+    <details>
+        <summary>Welche Plattformen werden unterstützt?</summary>
+        <p>Das Spiel wird primär für PC optimiert. Eine Unterstützung für mobile Endgeräte ist in Planung.</p>
+    </details>
 
-<div class="card">
-<h3>🚓 Polizei</h3>
-<p>Die Polizei sorgt für Sicherheit in der Stadt und schützt alle Bürger.</p>
-</div>
-
-<div class="card">
-<h3>🚑 Rettungsdienst</h3>
-<p>Notfälle werden durch den Rettungsdienst schnell versorgt.</p>
-</div>
-
-<div class="card">
-<h3>🏙 Stadtleben</h3>
-<p>Erlebe Geschäfte, Häuser, Straßen und das echte Leben der Stadt.</p>
-</div>
-
-<div class="card">
-<h3>🗺 Stadtkarte</h3>
-<p>Eine interaktive Karte der Stadt wird bald veröffentlicht.</p>
-</div>
-
-<div class="card">
-<h3>🎮 Roblox Roleplay</h3>
-<p>Königsbrunn City RP ist ein realistisches deutsches Roleplay Spiel auf Roblox.</p>
-</div>
-
-</div>
-
-<div class="news" id="news">
-
-<h2 style="margin-bottom:20px;">Projekt Updates</h2>
-
-<div class="news-item">
-<strong>🚧 Spielentwicklung gestartet</strong><br>
-Die Entwicklung von Königsbrunn City RP hat offiziell begonnen.
-</div>
-
-<div class="news-item">
-<strong>💬 Discord Community</strong><br>
-Unsere Community organisiert sich über unseren Discord Server.
-</div>
-
-<div class="news-item">
-<strong>🗺 Neue Stadtkarte</strong><br>
-Die erste Version der Stadtkarte befindet sich aktuell in Entwicklung.
-</div>
-
-</div>
-
-<!-- Bewerbung Section -->
-<div class="container" style="margin-top:80px;">
-  <h2 style="margin-bottom:30px;" id="bewerbung">Bewerben</h2>
-
-  <p>Willst du Teil unseres Teams werden? Klicke auf den Button und melde dich mit deinem Discord Account an, um die Bewerbung zu starten.</p>
-
-  <a class="btn btn-primary" id="discordLogin" href="#">
-    ✨ Mit Discord bewerben
-  </a>
-</div>
-
-<div class="community">
-
-<h2>Werde Teil der Community</h2>
-
-<p>Trete unserem Discord bei und erhalte alle Updates zum Projekt.</p>
-
-<a class="btn btn-primary" href="https://discord.gg/qg4gYuxUgx" target="_blank">
-Discord beitreten
-</a>
-
-</div>
-
+    <div style="background: var(--card); padding: 40px; border-radius: 15px; margin-top: 80px; text-align: center; border: 1px solid var(--accent);">
+        <h2 style="margin-bottom: 10px;">Karriere im Team</h2>
+        <p style="margin-bottom: 25px;">Wir suchen motivierte Unterstützung für die Bereiche Support, Moderation und Entwicklung.</p>
+        <a href="#" class="btn btn-primary" id="discordLogin">Bewerbung via Discord starten</a>
+    </div>
 </div>
 
 <footer>
-
-© 2026 Königsbrunn City Roleplay  
-Fiktive Stadt für ein Roblox Roleplay Projekt
-
+    <p>&copy; 2026 Königsbrunn City Roleplay. Alle Rechte vorbehalten.</p>
+    <p style="font-size: 0.7rem; margin-top: 10px;">Dieses Projekt steht in keiner direkten Verbindung zur Roblox Corporation.</p>
 </footer>
 
 <script>
-/* Discord OAuth Login + Bewerbungs-PUSH */
+// Mobil-Menü Logik
+const menuToggle = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('.nav-links');
 
-const clientId = "DEIN_DISCORD_CLIENT_ID"; // Discord OAuth Client ID
-const redirectUri = "https://deine-website.de/bewerbung-success"; // Seite, die der Bot empfängt
-const scope = "identify";
-
-document.getElementById("discordLogin").addEventListener("click", () => {
-    const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}`;
-    window.location.href = url;
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
 });
 
-// Optional: fetch API, um Bewerbung direkt an Bot zu senden
-// Beispiel (auf redirect-Seite nach OAuth):
-/*
-fetch('https://dein-bot.de/bewerbung', {
-   method: 'POST',
-   headers: {'Content-Type':'application/json'},
-   body: JSON.stringify({
-       user_id: discordId,
-       name: username,
-       discord: tag,
-       role: "Supporter",
-       reason: "Ich will helfen!"
-   })
+// Bewerbung-Button Platzhalter
+document.getElementById("discordLogin").addEventListener("click", (e) => {
+    e.preventDefault();
+    alert("Das Bewerbungssystem wird aktuell gewartet. Bitte nutze das Ticket-System auf Discord.");
 });
-*/
 </script>
 
 </body>
