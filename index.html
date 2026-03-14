@@ -29,27 +29,30 @@ nav { position: fixed; top: 0; width: 100%; padding: 25px 5%; display: flex; jus
 .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
 .nav-links a:hover { color: var(--primary); }
 
-/* --- Hero Section mit neuem Holz-Hintergrund --- */
+/* --- Hero Section mit Dark Wood & Spotlights --- */
 .hero {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0 10%;
-    /* Neues Bild mit Overlay für bessere Lesbarkeit */
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                url('https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+    /* Hintergrund: Dunkles Holz */
+    background: 
+        /* Die Spotlights von oben (simuliert durch Gradients) */
+        radial-gradient(circle at 30% -10%, rgba(255,255,255,0.15) 0%, transparent 40%),
+        radial-gradient(circle at 70% -10%, rgba(255,255,255,0.15) 0%, transparent 40%),
+        /* Dunkler Schleier für den Vignetten-Effekt (unten und an den Seiten dunkler) */
+        linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%),
+        /* Das Holz-Bild */
+        url('https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
     position: relative;
     overflow: hidden;
 }
-.hero::after {
-    content: '';
-    position: absolute; top:0; left:0; width:100%; height:100%;
-    background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%);
-    pointer-events: none;
-}
+
 .hero-label { color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; font-size: 0.8rem; }
-.hero h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1; font-weight: 800; margin-bottom: 30px; max-width: 900px; color: var(--text-main); }
+.hero h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1; font-weight: 800; margin-bottom: 30px; max-width: 900px; color: var(--text-main); text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 .hero h1 span { color: var(--primary); }
 .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin-bottom: 40px; }
 
@@ -58,10 +61,10 @@ nav { position: fixed; top: 0; width: 100%; padding: 25px 5%; display: flex; jus
 .btn { padding: 18px 35px; border-radius: 12px; text-decoration: none; font-weight: 600; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); font-size: 1rem; }
 .btn-primary { background: var(--primary); color: white; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2); }
 .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4); }
-.btn-secondary { border: 1px solid var(--border); color: var(--text-main); background: rgba(255,255,255,0.03); }
+.btn-secondary { border: 1px solid var(--border); color: var(--text-main); background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); }
 .btn-secondary:hover { background: rgba(255,255,255,0.08); }
 
-/* --- Sections --- */
+/* --- Restliche Sections (Struktur & Status) --- */
 section { padding: 120px 10%; }
 .section-title { font-size: 2.5rem; margin-bottom: 60px; font-weight: 800; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -93,7 +96,6 @@ section { padding: 120px 10%; }
 .card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--text-main); }
 .card p { color: var(--text-muted); font-size: 1rem; }
 
-/* --- Status Box ohne weißen Hintergrund --- */
 .status-box { background: linear-gradient(145deg, var(--surface), #080a0f); padding: 60px; border-radius: 32px; border: 1px solid var(--border); }
 .status-list { list-style: none; }
 .status-item { padding: 25px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 250px 1fr; align-items: center; transition: all 0.3s ease; cursor: default; }
@@ -105,7 +107,6 @@ section { padding: 120px 10%; }
 .progress { height: 6px; background:#222; border-radius:3px; margin-top:8px; width:100%; }
 .progress-bar { width:20%; height:100%; background:var(--primary); border-radius:3px; transition: width 1s; }
 
-/* --- Footer --- */
 footer { padding: 80px 10%; border-top: 1px solid var(--border); text-align: center; color: #4b5563; font-size: 0.9rem; }
 
 /* --- Reveal Animation --- */
@@ -193,7 +194,7 @@ footer { padding: 80px 10%; border-top: 1px solid var(--border); text-align: cen
         </div>
         <div class="status-item">
             <div class="status-label">📝 Bewerbungen</div>
-            <div class="status-desc">Momentan pausiert, Fokus liegt auf Technik & Infrastruktur. <span style="opacity:0.7;">Hover für Details</span></div>
+            <div class="status-desc">Momentan pausiert, Fokus liegt auf Technik & Infrastruktur.</div>
         </div>
         <div class="status-item">
             <div class="status-label">💻 Technik</div>
@@ -202,10 +203,6 @@ footer { padding: 80px 10%; border-top: 1px solid var(--border); text-align: cen
         <div class="status-item">
             <div class="status-label">👥 Spielerzahlen</div>
             <div class="status-desc">Erste Testserver bis 50 Spieler gleichzeitig. Ausbau geplant.</div>
-        </div>
-        <div class="status-item">
-            <div class="status-label">🏥 Medizin & Rettung</div>
-            <div class="status-desc">Logistikbasiertes System, Simulation läuft im Alpha-Test.</div>
         </div>
     </div>
 </div>
