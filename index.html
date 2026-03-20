@@ -160,6 +160,7 @@
             border-radius: 12px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
+            z-index: 10000;
         }
 
         #login-box input {
@@ -167,6 +168,9 @@
             border-radius: 8px;
             border: none;
             outline: none;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            width: 120px;
         }
 
         #login-box button {
@@ -176,6 +180,7 @@
             background: var(--primary);
             color: white;
             cursor: pointer;
+            margin-left: 5px;
         }
 
         #login-box button:hover {
@@ -193,7 +198,7 @@
 
             <h2>Komplette Neustrukturierung</h2>
             <p>
-                Wir migrieren aktuell auf eine neue System-Architektur. 
+                Wir migrieren aktuell auf eine neue System-Architektur. <br>
                 Die Arbeiten beanspruchen voraussichtlich <b>2 bis 4 Tage</b>.
             </p>
 
@@ -231,33 +236,45 @@
         </div>
     </div>
 
-    <!-- 🔐 Login UI -->
     <div id="login-box">
-        <input id="keyInput" placeholder="Access Code">
+        <input id="keyInput" placeholder="Discord Code">
         <button onclick="login()">Unlock</button>
     </div>
 
     <script>
         const overlay = document.getElementById('maintenance-overlay');
+        
+        // Konfiguration: Ersetze 'DEINE_SERVER_IP' durch die IP deines Bot-Servers
+        const BOT_IP = "DEINE_SERVER_IP"; 
+        const API_URL = `http://${BOT_IP}:5000/verify-code`;
 
         function unlock() {
             overlay.style.display = 'none';
             document.body.style.overflow = 'auto';
+            document.getElementById('login-box').style.display = 'none';
         }
 
         function login() {
-            const key = document.getElementById('keyInput').value;
+            const code = document.getElementById('keyInput').value;
 
-            fetch("http://localhost:3000/check-code", {
+            if (!code) {
+                alert("Bitte gib einen Code ein.");
+                return;
+            }
+
+            fetch(API_URL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ key: key })
+                body: JSON.stringify({ code: code.trim().toUpperCase() })
             })
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok) return res.json();
+                throw new Error("Invalid Code");
+            })
             .then(data => {
-                if (data.valid) {
+                if (data.success) {
                     localStorage.setItem("dev_access", "true");
                     unlock();
                     alert("Zugriff gewährt 🔓");
@@ -265,17 +282,18 @@
                     alert("❌ Code falsch oder abgelaufen");
                 }
             })
-            .catch(() => {
-                alert("⚠️ Server nicht erreichbar");
+            .catch((err) => {
+                console.error(err);
+                alert("⚠️ Bot-Server nicht erreichbar oder Code ungültig");
             });
         }
 
+        // Automatischer Check beim Laden
         if (localStorage.getItem("dev_access") === "true") {
             unlock();
         }
     </script>
 
-
-<script src="script.js"></script>  
+    <script src="script.js"></script>  
 </body>
 </html>
