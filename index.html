@@ -22,10 +22,9 @@
             color: var(--text-main);
             margin: 0;
             height: 100vh;
-            overflow: hidden; /* Verhindert Scrollen während Wartung */
+            overflow: hidden;
         }
 
-        /* Das Overlay, das alles verdeckt */
         #maintenance-overlay {
             position: fixed;
             inset: 0;
@@ -36,7 +35,6 @@
             background-color: var(--bg);
         }
 
-        /* Hintergrund-Animation (Jetzt bewegt!) */
         .grid-bg {
             position: absolute;
             inset: 0;
@@ -87,7 +85,6 @@
         h2 { margin-bottom: 15px; font-weight: 600; }
         p { color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; font-size: 0.95rem; }
 
-        /* Progress Bar (Fixiert auf 25%) */
         .progress-container {
             background: rgba(255,255,255,0.05);
             height: 8px;
@@ -95,9 +92,10 @@
             overflow: hidden;
             margin-bottom: 10px;
         }
+
         .progress-fill {
             height: 100%;
-            width: 25%; /* Festgelegt */
+            width: 25%;
             background: linear-gradient(90deg, var(--primary), var(--accent));
             box-shadow: 0 0 15px var(--primary);
         }
@@ -110,13 +108,13 @@
             margin-bottom: 30px;
         }
 
-        /* System List */
         .system-list {
             text-align: left;
             background: rgba(0,0,0,0.2);
             border-radius: 12px;
             padding: 15px;
         }
+
         .system-item {
             display: flex;
             justify-content: space-between;
@@ -124,21 +122,64 @@
             padding: 8px 0;
             border-bottom: 1px solid rgba(255,255,255,0.03);
         }
+
         .system-item:last-child { border: none; }
-        .dot { height: 8px; width: 8px; background: orange; border-radius: 50%; display: inline-block; margin-right: 8px; }
+
+        .dot {
+            height: 8px;
+            width: 8px;
+            background: orange;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
         .dot.loading { animation: blink 1s infinite; }
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
         @keyframes blink { 
             0% { background: orange; box-shadow: 0 0 5px orange; } 
             50% { background: #333; box-shadow: none; } 
             100% { background: orange; box-shadow: 0 0 5px orange; }
         }
 
-        /* Content-Bereich (Hier arbeitest du) */
         #main-content {
             padding: 50px;
             text-align: center;
+        }
+
+        /* 🔐 Login Box */
+        #login-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.6);
+            padding: 15px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        #login-box input {
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+
+        #login-box button {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+        }
+
+        #login-box button:hover {
+            background: var(--accent);
         }
     </style>
 </head>
@@ -149,7 +190,7 @@
         <div class="container">
             <div class="status-tag">System-Upgrade läuft</div>
             <div class="logo">KÖNIGS<span>BRUNN</span></div>
-            
+
             <h2>Komplette Neustrukturierung</h2>
             <p>
                 Wir migrieren aktuell auf eine neue System-Architektur. 
@@ -159,6 +200,7 @@
             <div class="progress-container">
                 <div class="progress-fill"></div>
             </div>
+
             <div class="progress-label">
                 <span>Core-Migration</span>
                 <span>25% abgeschlossen</span>
@@ -189,33 +231,49 @@
         </div>
     </div>
 
-    <script>
-        // DEIN MANAGEMENT KEY
-        const ADMIN_KEY = "admin123"; 
+    <!-- 🔐 Login UI -->
+    <div id="login-box">
+        <input id="keyInput" placeholder="Access Code">
+        <button onclick="login()">Unlock</button>
+    </div>
 
+    <script>
         const overlay = document.getElementById('maintenance-overlay');
 
-        // Check beim Laden, ob man bereits eingeloggt ist
-        if (localStorage.getItem('unlock_key') === ADMIN_KEY) {
+        function unlock() {
             overlay.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // Tastatur-Event: Drücke "L" (für Login) um den Key einzugeben
-        window.addEventListener('keydown', (e) => {
-            if (e.key.toLowerCase() === 'l') {
-                const input = prompt("Management-Key eingeben:");
-                if (input === ADMIN_KEY) {
-                    localStorage.setItem('unlock_key', ADMIN_KEY);
-                    overlay.style.fadeOut(); // Optionaler Effekt
-                    overlay.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                    alert("Zugriff gewährt. Viel Spaß beim Bauen!");
-                } else if (input !== null) {
-                    alert("Falscher Key!");
+        function login() {
+            const key = document.getElementById('keyInput').value;
+
+            fetch("http://localhost:3000/check-code", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ key: key })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.valid) {
+                    localStorage.setItem("dev_access", "true");
+                    unlock();
+                    alert("Zugriff gewährt 🔓");
+                } else {
+                    alert("❌ Code falsch oder abgelaufen");
                 }
-            }
-        });
+            })
+            .catch(() => {
+                alert("⚠️ Server nicht erreichbar");
+            });
+        }
+
+        if (localStorage.getItem("dev_access") === "true") {
+            unlock();
+        }
     </script>
+
 </body>
 </html>
