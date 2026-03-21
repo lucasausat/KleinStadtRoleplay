@@ -10,7 +10,7 @@
             --bg: #05070a;
             --surface: #0d1117;
             --primary: #3b82f6;
-            --accent: #fbbf24;
+            --accent: #fbbf24; /* Edles Gold */
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --glass: rgba(13, 21, 32, 0.8);
@@ -18,109 +18,74 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: radial-gradient(circle at top, #1e293b, #05070a);
+            background: radial-gradient(circle at top, #111827, #05070a);
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Navbar */
+        /* Glow Effekt für Überschriften */
+        @keyframes glow { 0%, 100% { text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); } 50% { text-shadow: 0 0 25px rgba(96, 165, 250, 0.8); } }
+
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(15px);
-            background: var(--glass);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
+            position: fixed; top: 0; width: 100%; padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(15px); background: var(--glass);
+            border-bottom: 1px solid var(--border); z-index: 1000;
         }
         .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: 1px; }
         .logo span { color: var(--accent); }
         .nav-links { display: flex; gap: 25px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; transition: 0.3s; font-size: 0.9rem; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent); }
 
-        /* Hero */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 10%;
+            min-height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 0 10%; position: relative;
         }
         .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff 30%, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+            font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800;
+            background: linear-gradient(135deg, #fff 40%, var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: glow 3s infinite; margin-bottom: 20px;
         }
-        .hero p {
-            color: var(--text-muted);
-            max-width: 650px;
-            font-size: 1.2rem;
-            margin-bottom: 35px;
-        }
+        .hero p { color: var(--text-muted); max-width: 700px; font-size: 1.2rem; margin-bottom: 30px; }
 
-        /* Buttons */
         .btn {
-            padding: 14px 32px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: inline-block;
+            padding: 14px 32px; border-radius: 50px; text-decoration: none;
+            font-weight: 700; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-block; background: var(--primary); color: #fff;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
         }
-        .btn-primary {
-            background: var(--accent);
-            color: #000;
-            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
-        }
-        .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(251, 191, 36, 0.4);
-        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.5); }
 
-        /* Sections */
-        .section { padding: 80px 10%; border-top: 1px solid var(--border); }
-        h2 { font-size: 2.2rem; margin-bottom: 40px; text-align: center; }
-        h2 span { color: var(--accent); }
+        .section { padding: 100px 10%; border-top: 1px solid var(--border); }
+        h2 { font-size: 2.5rem; margin-bottom: 50px; text-align: center; }
+        h2 span { color: var(--primary); }
 
-        /* Grid für Infos */
+        /* Features & Team Grid */
         .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;
         }
         .card {
-            background: var(--glass);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            transition: 0.3s;
+            background: var(--glass); padding: 35px; border-radius: 24px;
+            border: 1px solid var(--border); transition: 0.4s;
+            opacity: 0; transform: translateY(30px);
         }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .card h3 { color: var(--accent); margin-bottom: 10px; }
+        .card.visible { opacity: 1; transform: translateY(0); }
+        .card:hover { border-color: var(--primary); background: rgba(255,255,255,0.03); }
+        .card h3 { color: var(--accent); margin-bottom: 15px; }
 
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
+        /* Roadmap */
+        .roadmap { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto; }
+        .step { padding: 20px; border-left: 3px solid var(--primary); background: rgba(59, 130, 246, 0.05); border-radius: 0 15px 15px 0; }
+        .step.active { border-left-color: var(--accent); background: rgba(251, 191, 36, 0.05); }
 
-        /* Animation */
-        [data-reveal] { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
-        .revealed { opacity: 1; transform: translateY(0); }
+        footer { text-align: center; padding: 60px; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
@@ -128,51 +93,68 @@
 <nav>
     <div class="logo">KÖNIGS<span>BRUNN</span></div>
     <div class="nav-links">
-        <a href="#about">Über uns</a>
+        <a href="#features">Features</a>
+        <a href="#roadmap">Roadmap</a>
         <a href="https://discord.gg/DM2Au3f6" target="_blank">Discord</a>
-        <a href="https://lucasausat.github.io/koenigsbrunn-web/bewerbungsportal" style="color: var(--accent);">Bewerben</a>
     </div>
 </nav>
 
 <section class="hero">
-    <h1>Projekt Königsbrunn</h1>
-    <p>Die Zukunft des Roleplays auf Roblox. Tauche ein in eine Welt voller Möglichkeiten, Jobs und einer starken Community.</p>
+    <h1>Dein Leben in Königsbrunn</h1>
+    <p>Erlebe das authentische Kleinstadtleben auf Roblox. Projekt Königsbrunn vereint tiefgreifenden Realismus, modernste Technik und eine starke Community zu einem einzigartigen Rollenspiel-Erlebnis. Veröffentlichung geplant für 2026.</p>
     <div class="btn-group">
-        <a href="#about" class="btn btn-primary">Mehr erfahren</a>
+        <a href="#features" class="btn">Welt erkunden</a>
+        <a href="https://discord.gg/DM2Au3f6" class="btn" style="background: transparent; border: 2px solid var(--primary); margin-left: 10px;">Discord beitreten</a>
     </div>
 </section>
 
-<section id="about" class="section" data-reveal>
-    <h2>Unsere <span>Vision</span></h2>
+<section id="features" class="section">
+    <h2>Unsere <span>Highlights</span></h2>
     <div class="grid">
         <div class="card">
-            <h3>Realismus</h3>
-            <p>Ein durchdachtes Wirtschaftssystem und realistische Job-Interaktionen sorgen für Langzeitspielspaß.</p>
+            <h3>Living World</h3>
+            <p>Werde Teil einer lebendigen Wirtschaft. Deine Berufe und Entscheidungen haben direkten Einfluss auf den Markt und das Stadtgeschehen.</p>
         </div>
         <div class="card">
-            <h3>Community</h3>
-            <p>Bei uns entscheidest DU mit. Regelmäßige Umfragen im Discord formen die Zukunft des Spiels.</p>
+            <h3>High Performance</h3>
+            <p>Dank modernster Custom-Scripts bieten wir ein flüssiges und bugfreies Spielerlebnis – egal ob auf PC, Konsole oder Mobile.</p>
         </div>
         <div class="card">
-            <h3>Technik</h3>
-            <p>Moderne Scripts und ein performantes Design garantieren ein flüssiges Erlebnis auf allen Geräten.</p>
+            <h3>Echtzeit-Anbindung</h3>
+            <p>Behalte alles im Blick: Deine Statistiken, In-Game Events und wichtige Ankündigungen werden live mit diesem Portal synchronisiert.</p>
+        </div>
+    </div>
+</section>
+    
+</section>
+
+<section id="roadmap" class="section">
+    <h2>Roadmap bis <span>2026</span></h2>
+    <div class="roadmap">
+        <div class="step">
+            <strong>JETZT:</strong> Entwicklung der Core-Systeme und Map-Design.
+        </div>
+        <div class="step active">
+            <strong>2025:</strong> Start der geschlossenen Alpha-Phase für Discord-Mitglieder.
+        </div>
+        <div class="step">
+            <strong>2026:</strong> Offizieller Release.
         </div>
     </div>
 </section>
 
 <footer>
-    <p>© 2026 Projekt Königsbrunn – Mit Leidenschaft entwickelt für Roblox.</p>
+    <p>© 2026 Projekt Königsbrunn – Alle Rechte vorbehalten.<br>Dieses Projekt steht in keiner direkten Verbindung zur Roblox Corporation.</p>
 </footer>
 
 <script>
-    // Scroll-Animation
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('revealed');
+            if(entry.isIntersecting) entry.target.classList.add('visible');
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.2 });
 
-    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+    document.querySelectorAll('.card').forEach(card => observer.observe(card));
 </script>
 
 </body>
