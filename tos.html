@@ -4,8 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToS | Projekt Königsbrunn</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ✨ Spezifisches Design für die ToS-Seite */
+        .tos-hero {
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .tos-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 80px 20px;
+        }
+
+        .support-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 40px;
+            margin-bottom: 25px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .support-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .support-card h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .support-card h3::before {
+            content: "§";
+            opacity: 0.3;
+            font-weight: 200;
+        }
+
+        .tos-text {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .tos-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tos-list li {
+            color: var(--text-muted);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .tos-list li:last-child {
+            border-bottom: none;
+        }
+
+        .tos-list li::before {
+            content: "•";
+            color: #fff;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            opacity: 0.6;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Anpassung */
+        @media (max-width: 768px) {
+            .support-card { padding: 25px; }
+            .tos-hero h1 { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
 
@@ -24,54 +120,61 @@
     </div>
 </nav>
 
-<header class="hero" style="min-height: 40vh;">
+<header class="tos-hero">
     <h1>Nutzungs<b>bedingungen</b></h1>
     <p>Unsere Richtlinien für ein faires und professionelles Miteinander in Königsbrunn.</p>
 </header>
 
-<main class="section visible" style="padding-top: 0;">
-    <div style="max-width: 900px; margin: 0 auto;">
-        
-        <div class="support-card" style="margin-bottom: 30px; border-radius: 12px;">
-            <h3>1. Geltungsbereich</h3>
-            <p style="color: var(--text-muted); line-height: 1.8;">
-                Mit dem Betreten unserer Plattformen (Discord, Spieleserver, Website) akzeptierst du diese Bedingungen. 
-                Projekt Königsbrunn ist ein privates Projekt. Wir behalten uns das Hausrecht vor.
-            </p>
-        </div>
-
-        <div class="support-card" style="margin-bottom: 30px; border-radius: 12px;">
-            <h3>2. Verhaltensregeln</h3>
-            <ul style="list-style: none; color: var(--text-muted);">
-                <li style="padding: 10px 0; border-bottom: 1px solid var(--border);">• Respektvoller Umgang mit allen Bürgern und Teammitgliedern.</li>
-                <li style="padding: 10px 0; border-bottom: 1px solid var(--border);">• Jegliche Form von Diskriminierung, Beleidigung oder Belästigung führt zum Ausschluss.</li>
-                <li style="padding: 10px 0; border-bottom: 1px solid var(--border);">• Das Ausnutzen von Fehlern (Exploits) oder Cheating ist strengstens untersagt.</li>
-            </ul>
-        </div>
-
-        <div class="support-card" style="margin-bottom: 30px; border-radius: 12px;">
-            <h3>3. Spenden & Virtuelle Güter</h3>
-            <p style="color: var(--text-muted); line-height: 1.8;">
-                Spenden dienen dem Erhalt der Serverkosten. Virtuelle Gegenstände oder Ränge bleiben Eigentum des Projekts. 
-                Bei einem Ausschluss durch Regelverstoß besteht <b>kein Anspruch auf Rückerstattung</b>.
-            </p>
-        </div>
-
-        <div class="support-card" style="margin-bottom: 30px; border-radius: 12px;">
-            <h3>4. Datenschutz</h3>
-            <p style="color: var(--text-muted); line-height: 1.8;">
-                Wir erheben nur Daten, die für den technischen Betrieb notwendig sind (z.B. Discord-ID, IP-Adresse beim Login). 
-                Deine Daten werden niemals an Dritte weitergegeben.
-            </p>
-        </div>
-
+<main class="tos-container">
+    
+    <div class="support-card">
+        <h3>1. Geltungsbereich</h3>
+        <p class="tos-text">
+            Mit dem Betreten unserer Plattformen (Discord, Spieleserver, Website) akzeptierst du diese Bedingungen. 
+            Projekt Königsbrunn ist ein privates Projekt. Wir behalten uns das Hausrecht vor.
+        </p>
     </div>
+
+    <div class="support-card">
+        <h3>2. Verhaltensregeln</h3>
+        <ul class="tos-list">
+            <li>Respektvoller Umgang mit allen Bürgern und Teammitgliedern ist Grundvoraussetzung.</li>
+            <li>Jegliche Form von Diskriminierung, Rassismus, Sexismus oder Belästigung führt zum sofortigen Ausschluss.</li>
+            <li>Das Ausnutzen von Fehlern (Exploits), Hacking oder Drittanbieter-Software (Cheating) ist strengstens untersagt.</li>
+        </ul>
+    </div>
+
+    <div class="support-card">
+        <h3>3. Spenden & Virtuelle Güter</h3>
+        <p class="tos-text">
+            Spenden dienen ausschließlich dem Erhalt und der Deckung der Serverkosten. Virtuelle Gegenstände oder Ränge bleiben Eigentum des Projekts. 
+            Bei einem Ausschluss durch Regelverstoß besteht <b>kein Anspruch auf Rückerstattung</b> der geleisteten Spenden.
+        </p>
+    </div>
+
+    <div class="support-card">
+        <h3>4. Datenschutz</h3>
+        <p class="tos-text">
+            Wir erheben nur Daten, die für den technischen Betrieb notwendig sind (z.B. Discord-ID, IP-Adresse beim Login). 
+            Deine Daten werden vertraulich behandelt und niemals ohne gesetzliche Grundlage an Dritte weitergegeben.
+        </p>
+    </div>
+
+    <div class="support-card">
+        <h3>5. Schlussbestimmungen</h3>
+        <p class="tos-text">
+            Die Projektleitung behält sich das Recht vor, diese Bedingungen jederzeit zu ändern oder zu ergänzen. 
+            Änderungen werden über unsere offiziellen Kanäle (Discord) rechtzeitig kommuniziert.
+        </p>
+    </div>
+
 </main>
 
 <footer>
-    &copy; 2026 PROJEKT KÖNIGSBRUNN | RECHTLICHE HINWEISE
+    &copy; 2026 PROJEKT KÖNIGSBRUNN | ALLE RECHTE VORBEHALTEN
 </footer>
 
 <script src="js/app.js"></script>
+
 </body>
 </html>
