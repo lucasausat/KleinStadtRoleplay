@@ -9,34 +9,7 @@
     
     <link rel="stylesheet" href="../css/style.css">
 
-    <!-- 🌌 Particles Upgrade -->
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-
     <style>
-        /* ✨ Scroll Progress */
-        #progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: white;
-            width: 0%;
-            z-index: 9999;
-        }
-
-        /* 🔥 Loader */
-        #loader {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            font-size: 20px;
-        }
-
         /* ✨ Micro Animations */
         .fade-in {
             opacity: 0;
@@ -54,20 +27,7 @@
             transition: 0.3s ease;
         }
 
-        /* 🔥 HERO UPGRADE */
-        .hero h1 {
-            background: linear-gradient(90deg, #fff, #aaa, #fff);
-            background-size: 200%;
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: shine 6s linear infinite;
-        }
-
-        @keyframes shine {
-            0% { background-position: 0%; }
-            100% { background-position: 200%; }
-        }
-
+        /* ✅ HERO FIX - Z-Index erhöht & Sichtbarkeit erzwungen */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -75,7 +35,22 @@
             flex-direction: column;
             justify-content: center;
             padding: 100px 20px;
-            z-index: 10;
+            z-index: 10; /* Erhöht, um über Partikeln zu liegen */
+            opacity: 1 !important; /* Sofort sichtbar */
+            transform: translateY(0) !important;
+        }
+
+        .hero h1,
+        .hero p,
+        .hero .stats,
+        .hero .btn {
+            position: relative;
+            z-index: 11;
+        }
+
+        .hero p {
+            opacity: 0.8;
+            max-width: 500px;
         }
 
         .hero::after {
@@ -89,44 +64,30 @@
             z-index: -1;
         }
 
-        /* 🌌 Particles */
+        /* ✅ PARTICLES FIX */
         #particles {
             position: fixed;
             z-index: -2;
-            pointer-events: none;
+            pointer-events: none; /* Klicks gehen durch die Partikel hindurch */
         }
 
-        /* 💬 Discord Upgrade */
-        .discord-box {
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
+        .discord-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
         }
 
-        /* ✨ Smooth Page Transition */
-        body {
-            opacity: 0;
-            transition: opacity 0.6s ease;
+        .discord-text {
+            max-width: 400px;
         }
-
-        body.loaded {
-            opacity: 1;
-        }
-
-        a {
-            transition: all 0.3s ease;
-        }
-
     </style>
 </head>
 <body>
 
-<div id="loader">System lädt...</div>
-<div id="progress"></div>
-
 <div class="bg-glow" id="mouse-glow"></div>
-<div id="particles"></div>
+<canvas id="particles"></canvas>
 
 <nav>
     <div class="logo" onclick="window.location.href='./'">Königs<b>brunn</b></div>
@@ -184,17 +145,17 @@
     <div class="bento-grid">
         <div class="card large">
             <h3> In Entwicklung</h3>
-            <p>Projekt Königsbrunn befindet sich aktuell in der aktiven Aufbauphase.</p>
+            <p>Projekt Königsbrunn befindet sich aktuell in der aktiven Aufbauphase. Wir feilen an der Performance und den ersten Grundsystemen, um euch ein flüssiges Erlebnis zu bieten.</p>
         </div>
 
         <div class="card">
             <h3> Bleib Up-to-Date</h3>
-            <p>Alle Fortschritte direkt auf Discord.</p>
+            <p>Alle Fortschritte, Teaser und Umfragen teilen wir direkt auf unserem Discord. Werde einer der ersten Bürger!</p>
         </div>
 
         <div class="card">
             <h3> Verstärkung gesucht</h3>
-            <p>Werde Teil des Teams.</p>
+            <p>Du hast Lust, ein Projekt von Grund auf mitzugestalten? Melde dich über unser Ticket-System im Discord.</p>
         </div>
     </div>
 </section>
@@ -202,14 +163,18 @@
 <section class="section fade-in">
     <h2>Community</h2>
     <div class="discord-section">
-        <div class="discord-text discord-box">
+        <div class="discord-text">
             <h3>Werde Teil der Stadt</h3>
-            <p>Live Updates & Community.</p>
-            <p><small>Letztes Update: Gerade eben</small></p>
+            <p>
+                Trete unserer Community bei, verfolge Updates live und sichere dir früh deinen Platz in Königsbrunn.
+            </p>
         </div>
 
         <iframe src="https://discord.com/widget?id=1477240537693028414&theme=dark"
-            width="350" height="500">
+            width="350" height="500"
+            allowtransparency="true"
+            frameborder="0"
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
         </iframe>
     </div>
 </section>
@@ -221,57 +186,16 @@
 <script src="../js/app.js"></script>
 
 <script>
-/* ✨ Loader */
-window.addEventListener("load", () => {
-    document.getElementById("loader").style.display = "none";
-    document.body.classList.add("loaded");
-});
-
-/* ✨ Scroll Progress */
-window.addEventListener("scroll", () => {
-    let scroll = window.scrollY;
-    let height = document.body.scrollHeight - window.innerHeight;
-    document.getElementById("progress").style.width = (scroll / height) * 100 + "%";
-});
-
-/* ✨ Scroll Animation */
+/* ✨ Scroll Animation Trigger */
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-});
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-/* 🌌 Particles (tsParticles) */
-tsParticles.load("particles", {
-    particles: {
-        number: { value: 60 },
-        color: { value: "#ffffff" },
-        links: { enable: true, color: "#ffffff", opacity: 0.2 },
-        move: { enable: true, speed: 1 }
-    }
-});
-
-/* 🥚 Easter Egg (bis Ostern 2026) */
-document.addEventListener("keydown", e => {
-    const now = new Date();
-    const end = new Date("2026-04-10");
-
-    if (e.key === "e" && now < end) {
-        alert("🐰 Oster-Easter-Egg gefunden!");
-    }
-});
-
-/* ✨ Smooth Page Transition */
-document.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", function(e){
-        if(this.href && this.href.includes(location.hostname)){
-            e.preventDefault();
-            document.body.style.opacity = "0";
-            setTimeout(() => window.location = this.href, 400);
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
         }
     });
 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
 </body>
