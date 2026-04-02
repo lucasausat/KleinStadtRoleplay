@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projekt Königsbrunn | Home</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="../css/style.css">
 
     <style>
-        html { scroll-behavior: smooth; }
-
+        /* ✨ ORIGINAL (UNVERÄNDERT) */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.8s ease;
         }
+
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
@@ -27,54 +26,6 @@
             transition: 0.3s ease;
         }
 
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            background: linear-gradient(90deg, #fff, #aaa, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 6s infinite linear;
-        }
-
-        @keyframes shine {
-            0% { background-position: -200px; }
-            100% { background-position: 200px; }
-        }
-
-        .btn-main {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-main::before {
-            content: "";
-            position: absolute;
-            width: 120%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
-            top: 0;
-            left: -120%;
-            transition: 0.5s;
-        }
-
-        .btn-main:hover::before {
-            left: 100%;
-        }
-
-        .nav-links a { position: relative; }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            width: 0%;
-            height: 2px;
-            background: white;
-            left: 0;
-            bottom: -4px;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover::after { width: 100%; }
-
         .hero {
             position: relative;
             min-height: 100vh;
@@ -83,6 +34,21 @@
             justify-content: center;
             padding: 100px 20px;
             z-index: 10;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .hero h1,
+        .hero p,
+        .hero .stats,
+        .hero .btn {
+            position: relative;
+            z-index: 11;
+        }
+
+        .hero p {
+            opacity: 0.8;
+            max-width: 500px;
         }
 
         .hero::after {
@@ -94,12 +60,11 @@
             top: 0;
             left: 0;
             z-index: -1;
-            pointer-events: none;
         }
 
         #particles {
             position: fixed;
-            z-index: -10;
+            z-index: -2;
             pointer-events: none;
         }
 
@@ -109,122 +74,163 @@
             align-items: center;
             gap: 40px;
             flex-wrap: wrap;
-            background: rgba(255,255,255,0.02);
-            padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
         }
 
-        #scroll-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            width: 0%;
-            background: white;
-            z-index: 9999;
+        .discord-text {
+            max-width: 400px;
         }
 
-        .menu-toggle { display: none; }
+        /* 📱 MOBILE ONLY (NEU & SAFE) */
+        .mobile-maintenance {
+            display: none;
+        }
 
         @media (max-width: 768px) {
-            .menu-toggle { display: block; }
 
-            nav, section, footer, canvas, #scroll-bar, .bg-glow {
+            /* 👉 NUR CONTENT AUSBLENDEN */
+            nav,
+            section,
+            footer,
+            canvas,
+            .bg-glow {
                 display: none !important;
             }
 
+            /* 👉 MOBILE SCREEN */
             .mobile-maintenance {
                 display: flex;
+                position: fixed;
+                inset: 0;
+                background: #000;
+                color: white;
+                z-index: 999999;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
             }
-        }
 
-        /* MOBILE SCREEN */
-        .mobile-maintenance {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: #000;
-            color: white;
-            z-index: 999999;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 20px;
-        }
+            .mobile-maintenance h1 {
+                font-size: 2.5rem;
+                background: linear-gradient(90deg, #fff, #aaa, #fff);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: shine 6s infinite linear;
+            }
 
-        .mobile-maintenance h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(90deg, #fff, #aaa, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 6s infinite linear;
+            @keyframes shine {
+                0% { background-position: -200px; }
+                100% { background-position: 200px; }
+            }
+
+            .mobile-maintenance p {
+                opacity: 0.7;
+                max-width: 300px;
+                margin-top: 10px;
+            }
+
+            .mobile-maintenance .btn {
+                margin-top: 20px;
+            }
         }
     </style>
 </head>
-
 <body>
 
+<!-- 📱 MOBILE SCREEN -->
 <div class="mobile-maintenance">
     <h1>Königs<br><b>Brunn</b></h1>
-    <p>Mobile Version in Arbeit 🚧</p>
-    <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">Discord</a>
+    <p>
+        Die mobile Version ist aktuell in Entwicklung.<br>
+        Komm später wieder oder nutze einen PC.
+    </p>
+
+    <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">
+        Discord öffnen
+    </a>
 </div>
 
-<div id="scroll-bar"></div>
+<!-- 🔥 ORIGINAL CONTENT (UNVERÄNDERT) -->
 <div class="bg-glow" id="mouse-glow"></div>
 <canvas id="particles"></canvas>
 
 <nav>
     <div class="logo" onclick="window.location.href='./'">Königs<b>brunn</b></div>
+    <div class="nav-right">
+        <div class="nav-links">
+            <a href="./">Home</a>
+            <a href="../team.html">Team</a>
+            <a href="../tos.html">ToS</a>
+            <a href="#features">Systeme</a>
+        </div>
+        <button id="theme-toggle">Light Mode</button>
+    </div>
 </nav>
 
 <section class="hero">
     <h1>Königs<br><b>Brunn</b></h1>
-    <p>Eine Stadt im Aufbau.</p>
-    <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">Discord</a>
+    <p>
+        Eine Stadt im Aufbau. Entscheidungen formen hier deine Zukunft.  
+        Technologie trifft auf Realismus – und du bist mittendrin.
+    </p>
+
+    <div class="stats">
+        <div class="stats-item"><h3 id="members">--</h3><p>Bürger</p></div>
+        <div class="stats-item">
+            <h3><span class="status-dot"></span> <span id="online">--</span></h3>
+            <p>Online</p>
+        </div>
+    </div>
+
+    <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">Discord Beitreten</a>
 </section>
 
+<section class="section fade-in">
+    <h2>Warum Königsbrunn?</h2>
+    <div class="bento-grid">
+        <div class="card">
+            <h3>Eigene Systeme</h3>
+            <p>Keine Standard-Server – wir entwickeln eigene Features für ein einzigartiges Erlebnis.</p>
+        </div>
+
+        <div class="card">
+            <h3>Aktives Team</h3>
+            <p>Wir arbeiten täglich am Projekt und hören aktiv auf die Community.</p>
+        </div>
+
+        <div class="card">
+            <h3>Qualität statt Masse</h3>
+            <p>Fokus auf sauberes Roleplay, Performance und langfristige Entwicklung.</p>
+        </div>
+    </div>
+</section>
+
+<section id="features" class="section fade-in">
+    <h2>Projekt-Status</h2>
+    <div class="bento-grid">
+        <div class="card large">
+            <h3> In Entwicklung</h3>
+            <p>Projekt Königsbrunn befindet sich aktuell in der aktiven Aufbauphase.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    &copy; 2026 PROJEKT KÖNIGSBRUNN 
+</footer>
+
+<script src="../js/app.js"></script>
+
 <script>
-/* Scroll */
-window.addEventListener("scroll", () => {
-    let scroll = window.scrollY;
-    let height = document.body.scrollHeight - window.innerHeight;
-    document.getElementById("scroll-bar").style.width = (scroll / height) * 100 + "%";
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
 });
-
-/* Particles */
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-for(let i = 0; i < 80; i++){
-    particles.push({
-        x: Math.random()*canvas.width,
-        y: Math.random()*canvas.height,
-        r: Math.random()*2,
-        dx: (Math.random()-0.5)*0.5,
-        dy: (Math.random()-0.5)*0.5
-    });
-}
-
-function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach(p => {
-        p.x += p.dx;
-        p.y += p.dy;
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fillStyle = "rgba(255,255,255,0.6)";
-        ctx.fill();
-    });
-    requestAnimationFrame(animate);
-}
-animate();
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
 </body>
