@@ -57,6 +57,7 @@
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             position: sticky; top: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); z-index: 1000;
         }
+        /* FIX: Pfad zum Hauptverzeichnis */
         .logo { font-weight: 800; font-size: 1.2rem; cursor: pointer; letter-spacing: 1px; }
         .logo b { color: var(--primary); }
         nav a { color: rgba(255, 255, 255, 0.7); text-decoration: none; margin-left: 20px; transition: 0.3s; font-size: 0.9rem; }
@@ -76,13 +77,7 @@
             text-decoration: none; color: inherit; display: block;
         }
         .card:hover { transform: translateY(-10px); border-color: rgba(124, 92, 255, 0.5); background: rgba(255, 255, 255, 0.05); }
-        .card::before {
-            content: ""; position: absolute; inset: 0;
-            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(124, 92, 255, 0.1), transparent 40%);
-            z-index: 0; pointer-events: none;
-        }
-
-        /* BEWERBUNGS-CARD (Normalgröße) */
+        
         .apply-card {
             background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(59, 130, 246, 0.1));
             border: 1px dashed rgba(124, 92, 255, 0.4);
@@ -124,7 +119,7 @@
     </div>
     
     <nav>
-        <div class="logo">Königs<b>brunn</b></div>
+        <div class="logo" onclick="window.location.href='../'">Königs<b>brunn</b></div>
         <div>
             <a href="../home/">Home</a>
             <a href="./">Team</a>
@@ -196,7 +191,6 @@
                 <div class="desc">Wir suchen Verstärkung in den Bereichen Development & Support. Klicke hier für das Dashboard!</div>
             </div>
         </a>
-
     </main>
 
     <footer>© 2026 Projekt Königsbrunn</footer>
@@ -207,8 +201,10 @@
         document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
-                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
             });
         });
     </script>
