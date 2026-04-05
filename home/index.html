@@ -11,6 +11,16 @@
 
 <style>
 
+/* ===== FORCE DARK MODE (WHITE MODE LOCK) ===== */
+html, body {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.light, .light-mode, .white-mode {
+    display: none !important;
+}
+
 /* ===== EXTRA LIFE EFFECTS ===== */
 .card {
     position: relative;
@@ -52,7 +62,7 @@
     color: #7c5cff;
 }
 
-/* ===== HERO FIX ===== */
+/* ===== HERO ===== */
 .hero h1 {
     font-size: clamp(3rem, 8vw, 5rem);
     line-height: 1.1;
@@ -67,7 +77,7 @@
     margin-bottom: 10px;
 }
 
-/* ===== STATUS UPGRADE ===== */
+/* ===== STATUS ===== */
 .status-box {
     padding: 20px;
     border-radius: 20px;
@@ -120,7 +130,13 @@
 <a href="./">Home</a>
 <a href="../team/">Team</a>
 <a href="../tos.html">ToS</a>
-<a href="#features">Systeme</a>
+
+<!-- 🔥 GEÄNDERT -->
+<a href="../community.html">
+<i data-lucide="book-open" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>
+Community Richtlinien
+</a>
+
 </div>
 
 <button id="theme-toggle" class="maintenance">
@@ -257,6 +273,9 @@ und die Welt entwickelt sich kontinuierlich weiter.
 
 <script>
 lucide.createIcons();
+
+/* EXTRA HARD LOCK (falls Script versucht Theme zu ändern) */
+document.body.classList.remove("light","light-mode","white-mode");
 
 const observer = new IntersectionObserver(entries => {
 entries.forEach(entry => {
