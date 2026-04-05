@@ -11,16 +11,6 @@
 
 <style>
 
-/* ===== FORCE DARK MODE (WHITE MODE LOCK) ===== */
-html, body {
-    background: #000 !important;
-    color: #fff !important;
-}
-
-.light, .light-mode, .white-mode {
-    display: none !important;
-}
-
 /* ===== EXTRA LIFE EFFECTS ===== */
 .card {
     position: relative;
@@ -62,7 +52,7 @@ html, body {
     color: #7c5cff;
 }
 
-/* ===== HERO ===== */
+/* ===== HERO FIX ===== */
 .hero h1 {
     font-size: clamp(3rem, 8vw, 5rem);
     line-height: 1.1;
@@ -83,11 +73,6 @@ html, body {
     border-radius: 20px;
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.08);
-    transition: 0.3s;
-}
-
-.status-box:hover {
-    transform: scale(1.02);
 }
 
 .progress {
@@ -95,14 +80,41 @@ html, body {
     height: 6px;
     border-radius: 10px;
     background: rgba(255,255,255,0.1);
-    overflow: hidden;
 }
 
 .progress-bar {
     height: 100%;
     width: 35%;
     background: #7c5cff;
-    box-shadow: 0 0 10px #7c5cff;
+}
+
+/* ===== POPUP ===== */
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-box {
+    background: #111;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 300px;
+}
+
+.popup button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background: #7c5cff;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 /* ===== FADE ===== */
@@ -122,6 +134,15 @@ html, body {
 
 <body>
 
+<!-- POPUP -->
+<div class="popup" id="popup">
+    <div class="popup-box">
+        <h3>Wartung</h3>
+        <p>Diese Seite ist aktuell noch nicht verfügbar.</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
+
 <nav>
 <div class="logo" onclick="window.location.href='../'">Königs<b>brunn</b></div>
 
@@ -130,32 +151,21 @@ html, body {
 <a href="./">Home</a>
 <a href="../team/">Team</a>
 <a href="../tos.html">ToS</a>
-
-<!-- 🔥 GEÄNDERT -->
-<a href="../community.html">
-<i data-lucide="book-open" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>
-Community Richtlinien
-</a>
-
+<a href="#" onclick="openPopup()">Community Richtlinien</a>
 </div>
 
-<button id="theme-toggle" class="maintenance">
+<button id="theme-toggle" class="maintenance" onclick="openPopup()">
 <i data-lucide="wrench"></i> Wartung
 </button>
 </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
 <h1>Königsbrunn</h1>
 
 <div class="hero-text">
-<p>
-Eine lebendige RP-Stadt im Aufbau – Entscheidungen formen deine Geschichte.
-</p>
-<p style="opacity:0.6;">
-Realistisches Roleplay trifft auf moderne Systeme und eine aktive Community.
-</p>
+<p>Eine lebendige RP-Stadt im Aufbau – Entscheidungen formen deine Geschichte.</p>
+<p style="opacity:0.6;">Realistisches Roleplay trifft auf moderne Systeme und eine aktive Community.</p>
 </div>
 
 <div class="stats">
@@ -175,94 +185,46 @@ Realistisches Roleplay trifft auf moderne Systeme und eine aktive Community.
 </a>
 </section>
 
-<!-- SECTION 1 -->
 <section class="section fade-in">
 <h2>Die Welt von Königsbrunn</h2>
 
 <div class="bento-grid">
 
-<div class="card">
-<div class="card-inner">
+<div class="card"><div class="card-inner">
 <i data-lucide="cpu"></i>
 <h3>Eigene Systeme</h3>
-<p>Individuell entwickelte Features sorgen für einzigartiges Roleplay.</p>
-</div>
-</div>
+<p>Individuelle Features für einzigartiges Roleplay.</p>
+</div></div>
 
-<div class="card">
-<div class="card-inner">
+<div class="card"><div class="card-inner">
 <i data-lucide="users"></i>
 <h3>Community</h3>
-<p>Eine wachsende Community mit Fokus auf gutes RP und Zusammenhalt.</p>
-</div>
-</div>
+<p>Eine wachsende Community mit Fokus auf gutes RP.</p>
+</div></div>
 
-<div class="card">
-<div class="card-inner">
+<div class="card"><div class="card-inner">
 <i data-lucide="zap"></i>
 <h3>Performance</h3>
-<p>Optimiert für flüssiges Gameplay ohne unnötige Lags.</p>
-</div>
-</div>
+<p>Flüssiges Gameplay ohne unnötige Lags.</p>
+</div></div>
 
 </div>
 </section>
 
-<!-- SECTION 2 -->
-<section class="section fade-in">
-<h2>Warum dieser Server?</h2>
-
-<div class="bento-grid">
-
-<div class="card">
-<div class="card-inner">
-<i data-lucide="shield"></i>
-<h3>Strukturiertes RP</h3>
-<p>Klare Regeln und ein sauberes Spielerlebnis stehen im Mittelpunkt.</p>
-</div>
-</div>
-
-<div class="card">
-<div class="card-inner">
-<i data-lucide="activity"></i>
-<h3>Ständige Entwicklung</h3>
-<p>Der Server entwickelt sich aktiv weiter – mit neuen Features.</p>
-</div>
-</div>
-
-<div class="card">
-<div class="card-inner">
-<i data-lucide="globe"></i>
-<h3>Lebendige Welt</h3>
-<p>Eine Stadt, die sich durch Spieleraktionen ständig verändert.</p>
-</div>
-</div>
-
-</div>
-</section>
-
-<!-- STATUS -->
 <section id="features" class="section fade-in">
 <h2>Projekt-Status</h2>
 
 <div class="bento-grid">
-
 <div class="status-box">
 <i data-lucide="activity"></i>
 <h3>Aktueller Stand</h3>
-
 <p style="opacity:0.7;">
-Wir stehen noch am Anfang – die Systeme entstehen Schritt für Schritt 
-und die Welt entwickelt sich kontinuierlich weiter.
+Wir stehen noch am Anfang – alles entwickelt sich Schritt für Schritt weiter.
 </p>
-
-<div class="progress">
-<div class="progress-bar"></div>
+<div class="progress"><div class="progress-bar"></div></div>
+</div>
 </div>
 
-</div>
-
-</div>
 </section>
 
 <footer>
@@ -274,8 +236,13 @@ und die Welt entwickelt sich kontinuierlich weiter.
 <script>
 lucide.createIcons();
 
-/* EXTRA HARD LOCK (falls Script versucht Theme zu ändern) */
-document.body.classList.remove("light","light-mode","white-mode");
+function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
 
 const observer = new IntersectionObserver(entries => {
 entries.forEach(entry => {
@@ -283,7 +250,7 @@ if (entry.isIntersecting) {
 entry.target.classList.add('visible');
 }
 });
-}, { threshold: 0.1 });
+});
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
