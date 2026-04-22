@@ -1,243 +1,268 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klein Stdt Roleplay | Wartung</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KleinStadt Roleplay | Wartung</title>
 
-    <style>
-        :root {
-            --bg: #02040a; 
-            --surface: #050a15;
-            --primary: #6366f1;
-            --text-main: #ffffff;
-            --text-muted: #8892b0;
-            --border: rgba(255, 255, 255, 0.04);
-            --card-bg: rgba(8, 14, 28, 0.6);
-            --nav-bg: rgba(2, 4, 10, 0.8);
-        }
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+<style>
+:root {
+    --primary: #3ecf8e;
+    --secondary: #3aa6ff;
+    --bg: #070b08;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.08);
+    --text: #ffffff;
+    --muted: rgba(255,255,255,0.6);
+}
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Plus Jakarta Sans', sans-serif;
+}
 
-        .bg-glow {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, var(--primary), transparent 60%);
-            opacity: 0.06;
-            z-index: -2;
-            pointer-events: none;
-        }
+body {
+    background: var(--bg);
+    color: var(--text);
+    overflow-x:hidden;
+}
 
-        /* Navigationsleiste */
-        nav {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 15px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(20px);
-            background: var(--nav-bg);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-        }
+/* 🌿 Smooth Background Glow */
+.glow {
+    position:fixed;
+    width:500px;
+    height:500px;
+    background: radial-gradient(circle, rgba(62,207,142,0.15), transparent 70%);
+    filter: blur(80px);
+    top:20%;
+    left:30%;
+    animation: moveGlow 12s infinite alternate ease-in-out;
+}
 
-        .logo { font-weight: 200; font-size: 1.3rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
-        .logo b { font-weight: 600; color: var(--primary); }
+@keyframes moveGlow {
+    from { transform: translate(0,0); }
+    to { transform: translate(60px,40px); }
+}
 
-        .nav-links a { 
-            color: var(--text-muted); 
-            text-decoration: none; 
-            font-size: 0.7rem; 
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-left: 25px;
-        }
+/* 🧠 HERO */
+.hero {
+    min-height: 100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px 20px;
+}
 
-        /* Hero Sektion */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 5%;
-        }
+.icon-box {
+    padding:18px;
+    border-radius:20px;
+    background:var(--card);
+    border:1px solid var(--border);
+    margin-bottom:25px;
+    color:var(--primary);
+}
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 200; 
-            letter-spacing: -2px;
-            line-height: 0.9;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-        }
-        .hero h1 b { font-weight: 500; color: var(--primary); }
+h1 {
+    font-size:clamp(2.2rem,6vw,3.5rem);
+    font-weight:800;
+    margin-bottom:15px;
+}
 
-        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 650px; margin-bottom: 40px; font-weight: 300; }
+h1 span {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
 
-        /* Progress / Status */
-        .status-container {
-            margin-bottom: 50px;
-            width: 100%;
-            max-width: 400px;
-        }
+p {
+    max-width:600px;
+    color:var(--muted);
+    margin-bottom:30px;
+    line-height:1.6;
+}
 
-        .status-text {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            color: var(--primary);
-            font-weight: 700;
-        }
+/* 🔘 BUTTON */
+.btn {
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:linear-gradient(90deg, var(--primary), var(--secondary));
+    padding:14px 26px;
+    border-radius:12px;
+    text-decoration:none;
+    color:white;
+    font-weight:600;
+    transition:0.25s;
+}
 
-        .progress-bar {
-            height: 4px;
-            background: var(--border);
-            border-radius: 2px;
-            overflow: hidden;
-        }
+.btn:hover {
+    transform:translateY(-2px);
+    filter:brightness(1.1);
+}
 
-        .progress-fill {
-            height: 100%;
-            width: 35%;
-            background: var(--primary);
-            box-shadow: 0 0 15px var(--primary);
-        }
+/* 📊 PROGRESS */
+.status {
+    margin-top:40px;
+    width:100%;
+    max-width:400px;
+}
 
-        /* Bento Grid */
-        .section { padding: 80px 10%; }
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: 240px;
-            gap: 20px;
-        }
+.status-text {
+    display:flex;
+    justify-content:space-between;
+    font-size:0.75rem;
+    color:var(--muted);
+    margin-bottom:6px;
+}
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            backdrop-filter: blur(10px);
-            transition: 0.4s ease;
-        }
-        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .card i { color: var(--primary); margin-bottom: 20px; }
-        .card h3 { font-size: 1rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-        .card p { color: var(--text-muted); font-size: 0.8rem; }
+.bar {
+    height:6px;
+    background:var(--card);
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--border);
+}
 
-        .large { grid-column: span 2; }
+.fill {
+    height:100%;
+    width:25%;
+    background:linear-gradient(90deg, var(--primary), var(--secondary));
+    box-shadow:0 0 10px var(--primary);
+    animation:load 2s ease forwards;
+}
 
-        .btn {
-            padding: 16px 40px;
-            background: var(--primary);
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-        .btn:hover { filter: brightness(1.2); transform: translateY(-2px); }
+@keyframes load {
+    from { width:0%; }
+    to { width:25%; }
+}
 
-        footer { padding: 60px 10%; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; }
+/* 🧩 CARDS */
+.section {
+    padding:80px 10%;
+}
 
-        /* Blocker für Mobile */
-        @media (max-width: 1024px) {
-            #mobile-blocker {
-                position: fixed; inset: 0; background: var(--bg); z-index: 9999;
-                display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;
-            }
-            body { overflow: hidden; }
-        }
-        @media (min-width: 1025px) { #mobile-blocker { display: none; } }
-    </style>
+.grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap:20px;
+}
+
+.card {
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:25px;
+    border-radius:16px;
+    transition:0.3s;
+}
+
+.card:hover {
+    transform:translateY(-5px);
+    border-color:rgba(62,207,142,0.4);
+}
+
+.card i {
+    color:var(--primary);
+    margin-bottom:15px;
+}
+
+.card h3 {
+    font-size:0.9rem;
+    margin-bottom:8px;
+}
+
+.card p {
+    font-size:0.8rem;
+    color:var(--muted);
+}
+
+/* FOOTER */
+footer {
+    text-align:center;
+    padding:40px;
+    font-size:0.7rem;
+    color:rgba(255,255,255,0.3);
+}
+</style>
 </head>
+
 <body>
 
-    <div class="bg-glow"></div>
+<div class="glow"></div>
 
-    <div id="mobile-blocker">
-        <i data-lucide="monitor" size="48" style="color:var(--primary); margin-bottom:20px;"></i>
-        <h2>DESKTOP ERFORDERLICH</h2>
-        <p style="color:var(--text-muted); font-size: 0.8rem; margin-top:10px;">Klein Stdt Roleplay ist für PC-Monitore optimiert.</p>
+<section class="hero">
+
+    <div class="icon-box">
+        <i data-lucide="map-pin-off" size="38"></i>
     </div>
 
-    <nav>
-        <div class="logo">Klein<b>Stdt</b></div>
-        <div class="nav-links">
-            <a href="https://discord.gg/DM2Au3f6RS">Discord</a>
+    <h1>KleinStadt <span>Roleplay</span></h1>
+
+    <p>
+        Neuer Name, neues Kapitel.  
+        Wir entwickeln aktuell ein komplett überarbeitetes Konzept mit neuem Branding, 
+        verbesserten Systemen und einer eigenen fiktiven Welt.
+    </p>
+
+    <a href="https://discord.gg/DM2Au3f6RS" class="btn">
+        <i data-lucide="message-circle"></i> Discord beitreten
+    </a>
+
+    <div class="status">
+        <div class="status-text">
+            <span>Projektstatus</span>
+            <span>Im Aufbau</span>
         </div>
-    </nav>
+        <div class="bar">
+            <div class="fill"></div>
+        </div>
+    </div>
 
-    <section class="hero">
-        <h1>Neuer Name. <b>Neue Vision.</b></h1>
-        <p>Wir bauen um! Aus Königsbrunn wird <b>Klein Stdt Roleplay</b>. Aktuell arbeiten wir am neuen Branding und optimieren die Systeme für ein besseres Spielerlebnis.</p>
-        
-        <div class="status-container">
-            <div class="status-text">
-                <span>Umbau-Phase</span>
-                <span>35% Abgeschlossen</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
+</section>
+
+<section class="section">
+    <div class="grid">
+
+        <div class="card">
+            <i data-lucide="palette"></i>
+            <h3>Neues Branding</h3>
+            <p>Modernes, ruhiges Design mit klarer Struktur.</p>
         </div>
 
-        <a href="https://discord.gg/DM2Au3f6RS" class="btn">Community Beitreten</a>
-    </section>
-
-    <section class="section">
-        <div class="bento-grid">
-            <div class="card large">
-                <i data-lucide="palette" size="32"></i>
-                <h3>Brand-Refresh</h3>
-                <p>Ein komplett neues visuelles Konzept für unsere fiktive Welt.</p>
-            </div>
-            <div class="card">
-                <i data-lucide="layout" size="32"></i>
-                <h3>Design</h3>
-                <p>Modern & Clean.</p>
-            </div>
-            <div class="card">
-                <i data-lucide="zap" size="32"></i>
-                <h3>Systeme</h3>
-                <p>Neue Features folgen.</p>
-            </div>
-            <div class="card large">
-                <i data-lucide="help-circle" size="32"></i>
-                <h3>Hilfe-Zentrale</h3>
-                <p>Ein integriertes System für Einsteiger wird gerade vorbereitet.</p>
-            </div>
+        <div class="card">
+            <i data-lucide="cpu"></i>
+            <h3>Neue Systeme</h3>
+            <p>Überarbeitete Features für besseres RP.</p>
         </div>
-    </section>
 
-    <footer>
-        &copy; 2026 KLEIN STDT ROLEPLAY | ALLE FUNKTIONEN AKTUELL DEAKTIVIERT
-    </footer>
+        <div class="card">
+            <i data-lucide="map"></i>
+            <h3>Eigene Welt</h3>
+            <p>Komplett fiktive Stadt statt Real Life Vorlage.</p>
+        </div>
 
-    <script>
-        lucide.createIcons();
-    </script>
+        <div class="card">
+            <i data-lucide="users"></i>
+            <h3>Community Fokus</h3>
+            <p>Mehr Mitbestimmung & bessere Einstiegshilfe.</p>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+© 2026 KleinStadt Roleplay – Entwicklung läuft
+</footer>
+
+<script>
+lucide.createIcons();
+</script>
+
 </body>
 </html>
