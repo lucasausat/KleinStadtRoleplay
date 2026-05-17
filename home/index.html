@@ -3,249 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klein Stadt | Willkommen</title>
+    <title>Klein Stadt | Evolution</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
-            --primary: #10b981;
-            --primary-glow: rgba(16, 185, 129, 0.4);
-            --primary-soft: rgba(16, 185, 129, 0.1);
-            --bg: #05070a;
-            --card-bg: rgba(15, 23, 42, 0.3);
-            --border: rgba(255, 255, 255, 0.05);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --bg: #030508;
+            --text-main: #ffffff;
+            --text-muted: #64748b;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --card-bg: rgba(10, 15, 30, 0.7);
+            --border: rgba(255, 255, 255, 0.08);
         }
 
-        /* Reset & Base */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        
         body {
             background-color: var(--bg);
             color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
+            background: #030508 radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                        #030508 radial-gradient(circle at 0% 100%, rgba(6, 180, 212, 0.1) 0%, transparent 40%);
         }
 
-        h1, h2, h3 { font-weight: 300; }
-        h1 b, h2 b, h3 b { font-weight: 600; color: var(--primary); }
+        /* ===== BACKGROUND ANIMATION ===== */
+        .bg-grid {
+            position: fixed; inset: 0; z-index: -1; opacity: 0.3;
+            background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+        @keyframes gridMove {
+            from { background-position: 0 0; }
+            to { background-position: 50px 50px; }
+        }
 
-        /* ===== LOADER ===== */
+        /* ===== MODERN LOADER ===== */
         #loader {
-            position: fixed; inset: 0; background: var(--bg); z-index: 9999;
+            position: fixed; inset: 0; background: #030508; z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s;
+            transition: opacity 0.6s cubic-bezier(0.85, 0, 0.15, 1), visibility 0.6s;
         }
-        .loader-logo { font-size: 2rem; letter-spacing: 5px; margin-bottom: 20px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(0.98); } 50% { opacity: 1; transform: scale(1); } }
+        .loader-content { text-align: center; }
+        .loader-logo { 
+            font-size: 2.5rem; font-weight: 800; letter-spacing: 4px; margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: textShimmer 3s ease infinite; background-size: 200% auto;
+        }
+        .loader-bar-wrapper {
+            width: 240px; height: 4px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; position: relative;
+        }
+        .loader-bar-fill {
+            height: 100%; width: 0%; 
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            box-shadow: 0 0 15px var(--accent-cyan);
+            transition: width 0.4s ease-out;
+        }
+
+        @keyframes textShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
         /* ===== NAVIGATION ===== */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 20px 8%;
+            position: fixed; top: 0; width: 100%; padding: 25px 8%;
             display: flex; justify-content: space-between; align-items: center;
-            backdrop-filter: blur(20px); background: rgba(5, 7, 10, 0.8);
-            z-index: 1000; border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            background: rgba(3, 5, 8, 0.7); z-index: 1000; border-bottom: 1px solid var(--border);
         }
-        .logo { font-size: 1.1rem; text-transform: uppercase; cursor: pointer; letter-spacing: 2px; }
-        .logo b { color: var(--primary); font-weight: 800; }
-        .nav-right { display: flex; align-items: center; gap: 40px; }
-        .nav-links { display: flex; gap: 35px; }
-        .nav-links a { 
-            text-decoration: none; color: var(--text-muted); font-size: 0.75rem; 
-            font-weight: 700; text-transform: uppercase; transition: 0.3s; 
+        .logo { font-size: 1.3rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; }
+        .logo span { color: var(--accent-cyan); }
+        .discord-btn {
+            background: #5865F2; color: #fff; text-decoration: none; padding: 10px 20px; 
+            border-radius: 12px; font-size: 0.85rem; font-weight: 700; display: flex; 
+            align-items: center; gap: 8px; transition: all 0.3s ease;
         }
-        .nav-links a:hover { color: var(--primary); }
+        .discord-btn:hover { background: #4752c4; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(88, 101, 242, 0.2); }
 
-        /* ===== HERO ===== */
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 20px; }
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin-bottom: 20px; }
-        .hero-sub { max-width: 700px; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px; }
-
-        /* ===== STATUS BOX ===== */
-        .status-container {
-            width: 100%; max-width: 500px; padding: 30px; border-radius: 24px;
-            background: linear-gradient(145deg, rgba(16,185,129,0.1), rgba(16,185,129,0.02));
-            border: 1px solid rgba(16, 185, 129, 0.15);
+        /* ===== HERO / MAINTENANCE ===== */
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 140px 40px 80px 40px; }
+        
+        .header-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3);
+            padding: 8px 16px; border-radius: 100px; font-size: 0.8rem; font-weight: 700;
+            color: var(--accent-purple); text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 30px; animation: float 4s ease-in-out infinite;
         }
-        .bar-bg { height: 8px; background: rgba(0,0,0,0.3); border-radius: 10px; overflow: hidden; margin: 15px 0; }
-        .bar-fill { height: 100%; width: 0%; background: var(--primary); transition: width 2s cubic-bezier(0.65, 0, 0.35, 1); }
-
-        /* ===== GRID & SECTIONS ===== */
-        .section { padding: 80px 10%; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            padding: 40px; border-radius: 28px; transition: all 0.4s ease;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
-        .card:hover { border-color: var(--primary); transform: translateY(-10px); background: rgba(16, 185, 129, 0.05); }
-        .card i { color: var(--primary); margin-bottom: 20px; display: block; }
 
-        /* ===== WARTUNG SECTION (NEU) ===== */
-        .maintenance-info {
-            background: rgba(239, 68, 68, 0.03);
-            border: 1px dashed rgba(239, 68, 68, 0.2);
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
+        h1 { font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 25px; }
+        h1 span {
+            background: linear-gradient(135deg, var(--accent-cyan) 30%, var(--accent-purple) 70%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .maintenance-info h3 { color: #ef4444; margin-bottom: 15px; font-weight: 600; }
-        .maintenance-info p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.8; }
 
-        /* ===== POPUP ===== */
-        .popup { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 9999; }
-        .popup-box { background: #0a0a0a; padding: 40px; border-radius: 20px; text-align: center; max-width: 350px; border: 1px solid var(--primary); }
-        .popup button { margin-top: 20px; padding: 10px 25px; border: none; background: var(--primary); color: white; border-radius: 8px; cursor: pointer; font-weight: 700; }
+        .hero-sub { max-width: 800px; color: var(--text-muted); font-size: 1.15rem; margin-bottom: 50px; }
 
-        /* PC BLOCKER */
+        /* ===== REASONING GRID ===== */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
+        
+        .info-card {
+            background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 40px;
+            position: relative; overflow: hidden; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        
+        /* Neuer, sauberer Lichtrahmen anstelle von Nebel-Flächen */
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 0 2px var(--live-color, var(--accent-cyan)), 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Individuelle Rahmenleuchten-Farben für die Karten */
+        .info-grid .info-card:nth-child(1):hover { --live-color: var(--accent-cyan); border-color: transparent; }
+        .info-grid .info-card:nth-child(2):hover { --live-color: var(--accent-purple); border-color: transparent; }
+        .info-grid .info-card:nth-child(3):hover { --live-color: var(--accent-pink); border-color: transparent; }
+
+        .card-icon {
+            width: 55px; height: 55px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+            margin-bottom: 25px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); transition: 0.3s;
+        }
+        .info-card:hover .card-icon { transform: scale(1.05) rotate(3deg); }
+        .info-card:nth-child(1) .card-icon { color: var(--accent-cyan); box-shadow: 0 0 20px rgba(6, 182, 212, 0.1); }
+        .info-child:nth-child(2) .card-icon, .info-card:nth-child(2) .card-icon { color: var(--accent-purple); box-shadow: 0 0 20px rgba(168, 85, 247, 0.1); }
+        .info-card:nth-child(3) .card-icon { color: var(--accent-pink); box-shadow: 0 0 20px rgba(236, 72, 153, 0.1); }
+
+        .info-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
+        .info-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
+
+        /* ===== DOMAIN NOTICE BADGE ===== */
+        .domain-notice {
+            display: flex; align-items: center; gap: 12px; max-width: 600px; margin: 80px auto 0 auto;
+            padding: 18px 25px; background: rgba(236, 72, 153, 0.03); border: 1px dashed rgba(236, 72, 153, 0.2);
+            border-radius: 20px; color: var(--text-muted); font-size: 0.9rem; text-align: left;
+        }
+        .domain-notice i { color: var(--accent-pink); flex-shrink: 0; }
+        .domain-notice b { color: #fff; font-weight: 600; }
+
+        /* ===== DETAILED MAINTENANCE STATUS ===== */
+        .status-box {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(168, 85, 247, 0.05));
+            border: 1px solid rgba(255,255,255,0.05); border-radius: 32px; padding: 50px; margin-top: 30px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .status-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; letter-spacing: 1px; }
+        
+        .progress-wrapper { width: 100%; max-width: 600px; margin: 20px 0; }
+        .bar-bg { height: 10px; background: rgba(0,0,0,0.4); border-radius: 100px; overflow: hidden; padding: 2px; border: 1px solid rgba(255,255,255,0.05); }
+        .bar-fill { 
+            height: 100%; width: 0%; border-radius: 100px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            background-size: 200% auto; animation: textShimmer 2s linear infinite;
+            transition: width 2.5s cubic-bezier(0.85, 0, 0.15, 1); 
+        }
+
+        .status-details {
+            display: flex; gap: 40px; margin-top: 30px; flex-wrap: wrap; justify-content: center;
+        }
+        .status-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+        .status-item i { color: var(--accent-cyan); }
+
+        /* MOBILE BLOCKER */
         @media (max-width: 1024px) {
             #mobile-blocker { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center; }
         }
         @media (min-width: 1025px) { #mobile-blocker { display: none; } }
 
-        /* FADE ANIMATION */
-        .fade { opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
+        /* SCROLL ANIMATION FADE */
+        .fade { opacity: 0; transform: translateY(40px); transition: 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .fade.show { opacity: 1; transform: translateY(0); }
 
         /* ===== FOOTER ===== */
-        footer { padding: 80px; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border); font-size: 0.8rem; }
-        .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 25px; }
-        .footer-links a { 
-            color: var(--text-muted); 
-            text-decoration: none; 
-            transition: 0.3s; 
-            cursor: help; 
-        }
-        .footer-links a:hover { color: #ef4444; }
+        footer { padding: 60px 40px; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border); font-size: 0.85rem; margin-top: 100px; }
+        footer .logo { font-size: 1rem; margin-bottom: 15px; opacity: 0.4; }
     </style>
 </head>
 <body>
 
+    <div class="bg-grid"></div>
+
     <div id="loader">
-        <div class="loader-logo">KLEIN<b>STADT</b></div>
-        <div style="width: 100px; height: 2px; background: rgba(255,255,255,0.1); border-radius: 2px;">
-            <div id="loader-bar" style="width: 0%; height: 100%; background: var(--primary); transition: 0.5s;"></div>
+        <div class="loader-content">
+            <div class="loader-logo">KLEIN STADT</div>
+            <div class="loader-bar-wrapper">
+                <div class="loader-bar-fill" id="loader-bar"></div>
+            </div>
         </div>
     </div>
 
     <div id="mobile-blocker">
-        <i data-lucide="monitor" size="48" color="#10b981"></i>
+        <i data-lucide="monitor" size="48" style="color: var(--accent-cyan);"></i>
         <h2 style="margin-top:20px;">PC benötigt</h2>
         <p style="color:var(--text-muted); margin-top:10px;">Bitte besuche uns am Computer für das beste Erlebnis.</p>
     </div>
 
-    <div class="popup" id="popup">
-        <div class="popup-box">
-            <i data-lucide="construction" color="#10b981" style="margin-bottom: 15px;"></i>
-            <h3>Info</h3>
-            <p id="popup-text">Diese Seite ist aktuell noch nicht verfügbar.</p>
-            <button onclick="closePopup()">Verstanden</button>
-        </div>
-    </div>
-
     <nav>
-        <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
-            KLEIN<b>STADT</b>
-        </div>
-        <div class="nav-right">
-            <div class="nav-links">
-                <a href="../home/">Home</a>
-                <a href="../team/">Team</a> 
-                <a href="../Community_Richtlinien/">Regelwerk</a>
-            </div>
-        </div>
+        <div class="logo">KLEIN<span>STADT</span></div>
+        <a href="https://discord.gg/CAugKGJ9dM" target="_blank" class="discord-btn">
+            <i data-lucide="message-square"></i> Discord Server
+        </a>
     </nav>
 
-    <section class="hero">
-        <h1 class="fade">DEINE STADT.<br><b>DEINE FREIHEIT.</b></h1>
-        <p class="hero-sub fade">
-            Ein ehrliches Projekt von Freunden. Wir bauen ohne Druck und schauen, wohin die Reise geht. Roblox ist nicht mehr das, was es mal war, aber wir geben unser Bestes.
-        </p>
+    <main class="main-container">
         
-        <div class="status-container fade">
-            <div style="display:flex; justify-content:space-between; font-weight:800; color:var(--primary); font-size:0.7rem; text-transform:uppercase;">
-                <span>Status: In den Kinderschuhen</span>
-                <span id="perc-val">0%</span>
-            </div>
-            <div class="bar-bg"><div class="bar-fill" id="main-bar"></div></div>
-            <p style="font-size: 0.75rem; opacity: 0.5;">Ob es jemals erscheint? Wer weiß...</p>
+        <div class="header-badge fade">
+            <i data-lucide="sparkles" size="14"></i> Große Neuausrichtung 2026
         </div>
-    </section>
 
-    <section class="section">
-        <div class="section-header fade">
-            <h2>DIE <b>REALITÄT</b></h2>
-        </div>
-        <div class="grid">
-            <div class="card fade">
-                <i data-lucide="clock" size="40"></i>
-                <h3>Anfangsstadium</h3>
-                <p>Das Spiel ist ganz am Anfang. Wir bauen dann, wenn wir Zeit und Lust haben – völlig ohne Stress.</p>
-            </div>
-            <div class="card fade">
-                <i data-lucide="users-2" size="40"></i>
-                <h3>Freunde-Team</h3>
-                <p>Hinter Klein Stadt steht kein Studio, sondern nur eine kleine Gruppe aus Freunden. Hobby geht vor.</p>
-            </div>
-            <div class="card fade">
-                <i data-lucide="construction" size="40"></i>
-                <h3>Ungewisse Zukunft</h3>
-                <p>Wir wissen nicht, ob es jemals fertig wird. Roblox hat sich verändert, aber wir basteln trotzdem weiter.</p>
-            </div>
-        </div>
-    </section>
+        <h1 class="fade">WIR BAUEN UM.<br><span>RADIKAL & NEU.</span></h1>
+        
+        <p class="hero-sub fade">
+            Wir ziehen die Reißleine. Die Webseite und das gesamte Projekt gehen ab sofort offline für eine komplette Kernsanierung. Kein halber Kram, kein schnelles Update, sondern ein fundamentaler Neustart.
+        </p>
 
-    <section class="section" style="background: rgba(255,255,255,0.01);">
-        <div class="section-header fade">
-            <h2>SPIEL-<b>INHALTE</b></h2>
-        </div>
-        <div class="grid">
-            <div class="card fade">
-                <i data-lucide="wallet" size="40"></i>
-                <h3>Wirtschaft</h3>
-                <p>Ein einfaches System, um Geld zu verdienen und Dinge zu kaufen. Realistisch und bodenständig.</p>
+        <div class="info-grid">
+            <div class="info-card fade">
+                <div class="card-icon"><i data-lucide="shield-alert" size="28"></i></div>
+                <h3>Das Ende von RP</h3>
+                <p>
+                    Die neuen Roblox Richtlinien machen es extrem schwer, flüssiges und unkompliziertes Roleplay aufzubauen. Ständige Kommunikations-Einschränkungen für jüngere Accounts zerstören einfach den Spielfluss. Bevor wir versuchen, ein kaputtes System am Leben zu halten, lassen wir es lieber ganz sein.
+                </p>
             </div>
-            <div class="card fade">
-                <i data-lucide="home" size="40"></i>
-                <h3>Wohnen</h3>
-                <p>Ein kleiner Ort zum Unterkommen. Wir planen schlichte Unterkünfte für deine RP-Story.</p>
-            </div>
-            <div class="card fade">
-                <i data-lucide="shield" size="40"></i>
-                <h3>Regeln</h3>
-                <p>Ein faires Miteinander ohne unnötig komplizierte Gesetze. Der Spaß steht im Vordergrund.</p>
-            </div>
-        </div>
-    </section>
 
-    <section class="section">
-        <div class="maintenance-info fade">
-            <i data-lucide="info" color="#ef4444" style="margin-bottom: 15px;"></i>
-            <h3>Warum sind manche Seiten gesperrt?</h3>
-            <p>
-                Hey! Vielleicht ist dir aufgefallen, dass das Impressum und die Nutzungsbedingungen unten noch nicht anklickbar sind. 
-                Der Grund ist simpel: Wir befinden uns mitten in einer **Umstrukturierung und einem neuen Branding** für Klein Stadt. 
-                Da wir dieses Projekt komplett in unserer **Freizeit** entwickeln und nebenbei auch noch ein echtes Leben (Schule, Arbeit, etc.) haben, 
-                reicht die Zeit leider nicht immer für alles gleichzeitig. Wir setzen die Priorität aktuell auf das Spiel selbst. 
-                Sry dafür – wir geben Gas, sobald es die Zeit zulässt!
+            <div class="info-card fade">
+                <div class="card-icon"><i data-lucide="ferris-wheel" size="28"></i></div>
+                <h3>Fokus auf Kirmes</h3>
+                <p>
+                    Wir wechseln das Genre komplett. Wir entwickeln ein vollwertiges Kirmes- und Jahrmarkt-Spiel. Hier steht die Technik im Vordergrund: Eigene Fahrgeschäfte steuern, komplexe Scripte, Lichtshows, Buden und pure Jahrmarkt-Atmosphäre. Das Beste daran: Der Spielspaß funktioniert ganz ohne nervigen Chat-Zwang.
+                </p>
+            </div>
+
+            <div class="info-card fade">
+                <div class="card-icon"><i data-lucide="wrench" size="28"></i></div>
+                <h3>Große Wartungsarbeiten</h3>
+                <p>
+                    Da wir alles im Team aus Freunden in unserer Freizeit machen, braucht so ein heftiger Umbau Zeit. Wir misten aktuell den alten Code aus, entwerfen neue 3D-Modelle für die Attraktionen und strukturieren die Marke komplett neu. Es wird sich einiges ändern.
+                </p>
+            </div>
+        </div>
+
+        <div class="domain-notice fade">
+            <i data-lucide="globe" size="22"></i>
+            <p><b>Wichtiger Hinweis zur URL:</b> Da wir das Projekt komplett neu strukturieren, wird sich in Kürze auch unsere Web-Adresse ändern. Wundert euch also nicht, warum hier aktuell noch „kleinstadt“ in der Domain steht!</p>
+        </div>
+
+        <div class="status-box fade">
+            <div class="status-title">AKTUELLES STADIUM</div>
+            
+            <div style="font-weight: 800; font-size: 2rem; color: var(--accent-cyan);" id="perc-val">0%</div>
+            
+            <div class="progress-wrapper">
+                <div class="bar-bg">
+                    <div class="bar-fill" id="main-bar"></div>
+                </div>
+            </div>
+            
+            <p style="font-size: 0.9rem; color: var(--text-muted); max-width: 500px;">
+                Wir stecken mitten in der Konzeptionierung und den ersten Server-Skripten. Wenn wir wiederkommen, dann richtig.
             </p>
+
+            <div class="status-details">
+                <div class="status-item"><i data-lucide="check-circle-2"></i> RP-Systeme gelöscht</div>
+                <div class="status-item"><i data-lucide="circle"></i> Kirmes-Physik-Engine</div>
+                <div class="status-item"><i data-lucide="circle"></i> Neues UI-Design</div>
+            </div>
         </div>
-    </section>
+
+    </main>
 
     <footer>
-        <div class="logo" style="margin-bottom: 10px; opacity: 0.5;">KLEIN<b>STADT</b></div>
-        <div>&copy; 2026 PROJEKT KLEIN STADT</div>
-        <div class="footer-links">
-            <a href="javascript:void(0)" onclick="openPopup('Das Impressum wird derzeit aufgrund des neuen Brandings überarbeitet.');">Impressum</a>
-            <a href="javascript:void(0)" onclick="openPopup('Die Nutzungsbedingungen sind wegen der Umstrukturierung in Arbeit.');">ToS</a>
-            <a href="../Community_Richtlinien/">Richtlinien</a>
-        </div>
+        <div class="logo">KLEIN<span>STADT</span></div>
+        <div>PROJEKT KLEIN STADT 2026 – QUALITY OVER SPEED</div>
     </footer>
 
     <script>
@@ -254,43 +296,51 @@
         window.onbeforeunload = function () { window.scrollTo(0, 0); };
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
 
-        function openPopup(text) { 
-            if(text) document.getElementById("popup-text").innerText = text;
-            document.getElementById("popup").style.display = "flex"; 
-        }
-        function closePopup() { document.getElementById("popup").style.display = "none"; }
-
+        // Loader Simulation
         window.addEventListener('load', () => {
             const loaderBar = document.getElementById('loader-bar');
             const loader = document.getElementById('loader');
-            loaderBar.style.width = '100%';
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                loader.style.visibility = 'hidden';
-                setTimeout(animateProgressBar, 500);
-            }, 1000);
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 15) + 5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        loader.style.visibility = 'hidden';
+                        setTimeout(animateProgressBar, 400);
+                    }, 200);
+                }
+                loaderBar.style.width = progress + '%';
+            }, 80);
         });
 
+        // Main Progress Bar Animation
         function animateProgressBar() {
             const bar = document.getElementById('main-bar');
             const val = document.getElementById('perc-val');
-            const target = 12; 
+            const target = 8; 
             bar.style.width = target + '%';
             let current = 0;
             let interval = setInterval(() => {
                 if(current >= target) clearInterval(interval);
                 val.innerText = current + '%';
                 current++;
-            }, 50);
+            }, 60);
         }
 
+        // Modern Scroll Observer with delay
         const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
+            entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
+                    setTimeout(() => {
+                        entry.target.classList.add('show');
+                    }, index * 50);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.05 });
 
         document.querySelectorAll('.fade').forEach(el => observer.observe(el));
     </script>
