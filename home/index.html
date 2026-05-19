@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klein Stadt | Evolution</title>
+    <title>Kirmes  Welt  | Bau Phase</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -122,7 +122,6 @@
             transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
         }
         
-        /* Sauberer Lichtrahmen um die Karten bei Hover */
         .info-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 0 0 2px var(--live-color, var(--accent-cyan)), 0 15px 35px rgba(0, 0, 0, 0.5);
@@ -176,38 +175,26 @@
         .status-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
         .status-item i { color: var(--accent-cyan); }
 
-        /* ===== MOBILE BLOCKER (MODERN, BUNTER VIBE - NUR FÜR SMARTPHONES < 768px) ===== */
-        @media (max-width: 767px) {
+        /* ===== MODERN MOBILE BLOCKER (NUR HANDYS, TABLETS ERLAUBT) ===== */
+        #mobile-blocker { display: none; }
+
+        @media (max-width: 639px) {
             #mobile-blocker { 
-                position: fixed; 
-                inset: 0; 
+                position: fixed; inset: 0; 
                 background: #030508 radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
-                z-index: 10000; 
-                display: flex; 
-                flex-direction: column; 
-                justify-content: center; 
-                align-items: center; 
-                padding: 25px; 
-                text-align: center;
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
+                z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+                padding: 25px; text-align: center; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             }
 
             .blocker-card {
-                background: rgba(10, 15, 30, 0.65);
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                padding: 35px 25px;
-                border-radius: 32px;
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(6, 182, 212, 0.05);
-                max-width: 360px;
-                width: 100%;
-                animation: blockerFloat 6s ease-in-out infinite;
+                background: rgba(10, 15, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.08);
+                padding: 35px 25px; border-radius: 32px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(6, 182, 212, 0.05);
+                max-width: 360px; width: 100%; animation: blockerFloat 6s ease-in-out infinite; position: relative;
             }
 
             .blocker-icon-wrap {
-                width: 75px; height: 75px; border-radius: 22px;
-                background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3);
-                display: flex; align-items: center; justify-content: center;
+                width: 75px; height: 75px; border-radius: 22px; background: rgba(6, 182, 212, 0.1);
+                border: 1px solid rgba(6, 182, 212, 0.3); display: flex; align-items: center; justify-content: center;
                 margin: 0 auto 20px auto; box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
             }
 
@@ -215,27 +202,28 @@
                 font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 12px;
                 background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
                 -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-                background-size: 200% auto; animation: textShimmer 3s ease infinite;
+                background-size: 200% auto; animation: textShimmer 3s ease infinite; text-transform: uppercase;
             }
 
-            /* Language Switcher inside Blocker */
-            .lang-switch {
-                display: inline-flex; gap: 5px; margin-top: 25px;
-                background: rgba(255, 255, 255, 0.03); padding: 4px; border-radius: 12px;
-                border: 1px solid rgba(255, 255, 255, 0.05);
+            /* LANG SWITCHER BUTTONS */
+            .lang-switcher {
+                display: flex; justify-content: center; gap: 8px; margin-top: 25px;
+                border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px;
             }
             .lang-btn {
-                background: transparent; border: none; color: var(--text-muted);
-                padding: 6px 14px; font-size: 0.8rem; font-weight: 700; border-radius: 8px;
-                cursor: pointer; transition: all 0.3s;
+                background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-muted);
+                padding: 6px 14px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; cursor: pointer;
+                transition: all 0.2s ease;
             }
             .lang-btn.active {
-                background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan);
-                border: 1px solid rgba(6, 182, 212, 0.2);
+                background: rgba(6, 182, 212, 0.1); border-color: var(--accent-cyan); color: #fff;
+                box-shadow: 0 0 10px rgba(6, 182, 212, 0.15);
             }
+            
+            /* Sektionen für Sprachensteuerung */
+            .lang-content { display: none; }
+            .lang-content.active { display: block; }
         }
-        /* Versteckt den Blocker auf iPads, Tablets (ab 768px) und PCs */
-        @media (min-width: 768px) { #mobile-blocker { display: none; } }
 
         @keyframes blockerFloat {
             0%, 100% { transform: translateY(0); }
@@ -257,7 +245,7 @@
 
     <div id="loader">
         <div class="loader-content">
-            <div class="loader-logo">KLEIN STADT</div>
+            <div class="loader-logo">KIRMES WELT</div>
             <div class="loader-bar-wrapper">
                 <div class="loader-bar-fill" id="loader-bar"></div>
             </div>
@@ -270,29 +258,29 @@
                 <i data-lucide="monitor" size="32" style="color: var(--accent-cyan);"></i>
             </div>
             
-            <div id="blocker-de">
-                <h2 class="blocker-title">PC BENÖTIGT</h2>
+            <div id="content-de" class="lang-content active">
+                <h2 class="blocker-title">PC benötigt</h2>
                 <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
-                    Unser neues Kirmes-Projekt setzt auf komplexe Technik, Steuerungen und Lichtshows. Bitte besuche uns am Computer für das volle Erlebnis!
+                    Unser Kirmes-Projekt setzt auf komplexe Technik, Fahrphysik und Lichtshows. Bitte besuche uns auf dem Computer oder Tablet für das beste Erlebnis!
                 </p>
             </div>
 
-            <div id="blocker-en" style="display: none;">
-                <h2 class="blocker-title">PC REQUIRED</h2>
+            <div id="content-en" class="lang-content">
+                <h2 class="blocker-title">PC Required</h2>
                 <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
-                    Our fairground project features complex mechanics, simulation controls, and light shows. Please visit us on a computer for the best experience!
+                    Our funfair project relies on complex mechanics, physics, and light shows. Please visit us on a computer or tablet for the best experience!
                 </p>
             </div>
 
-            <div class="lang-switch">
-                <button class="lang-btn active" id="btn-de" onclick="switchLang('de')">DE</button>
-                <button class="lang-btn" id="btn-en" onclick="switchLang('en')">EN</button>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="switchLang('de')">DE</button>
+                <button class="lang-btn" onclick="switchLang('en')">EN</button>
             </div>
         </div>
     </div>
 
     <nav>
-        <div class="logo">KLEIN<span>STADT</span></div>
+        <div class="logo">KIRMES<span>WELT</span></div>
         <a href="https://discord.gg/CAugKGJ9dM" target="_blank" class="discord-btn">
             <i data-lucide="message-square"></i> Discord Server
         </a>
@@ -366,8 +354,8 @@
     </main>
 
     <footer>
-        <div class="logo">KLEIN<span>STADT</span></div>
-        <div>PROJEKT KLEIN STADT 2026 – QUALITY OVER SPEED</div>
+        <div class="logo">KIRMES<span>WELT</span></div>
+        <div>PROJEKT KIRMES WELT 2026 – QUALITY OVER SPEED</div>
     </footer>
 
     <script>
@@ -376,24 +364,13 @@
         window.onbeforeunload = function () { window.scrollTo(0, 0); };
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
 
-        // Sprachsteuerung für den Blocker
+        // Blocker Language Logic
         function switchLang(lang) {
-            const deBox = document.getElementById('blocker-de');
-            const enBox = document.getElementById('blocker-en');
-            const btnDe = document.getElementById('btn-de');
-            const btnEn = document.getElementById('btn-en');
-
-            if (lang === 'de') {
-                deBox.style.display = 'block';
-                enBox.style.display = 'none';
-                btnDe.classList.add('active');
-                btnEn.classList.remove('active');
-            } else {
-                deBox.style.display = 'none';
-                enBox.style.display = 'block';
-                btnDe.classList.remove('active');
-                btnEn.classList.add('active');
-            }
+            document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.lang-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('content-' + lang).classList.add('active');
+            event.target.classList.add('active');
         }
 
         // Loader Simulation
