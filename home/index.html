@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Kirmes Game | In Bau  </title>
+    <title>Klein Stadt | Evolution</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -176,11 +176,71 @@
         .status-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
         .status-item i { color: var(--accent-cyan); }
 
-        /* MOBILE BLOCKER */
-        @media (max-width: 1024px) {
-            #mobile-blocker { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center; }
+        /* ===== MOBILE BLOCKER (MODERN, BUNTER VIBE - NUR FÜR SMARTPHONES < 768px) ===== */
+        @media (max-width: 767px) {
+            #mobile-blocker { 
+                position: fixed; 
+                inset: 0; 
+                background: #030508 radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+                z-index: 10000; 
+                display: flex; 
+                flex-direction: column; 
+                justify-content: center; 
+                align-items: center; 
+                padding: 25px; 
+                text-align: center;
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+            }
+
+            .blocker-card {
+                background: rgba(10, 15, 30, 0.65);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                padding: 35px 25px;
+                border-radius: 32px;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(6, 182, 212, 0.05);
+                max-width: 360px;
+                width: 100%;
+                animation: blockerFloat 6s ease-in-out infinite;
+            }
+
+            .blocker-icon-wrap {
+                width: 75px; height: 75px; border-radius: 22px;
+                background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3);
+                display: flex; align-items: center; justify-content: center;
+                margin: 0 auto 20px auto; box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
+            }
+
+            .blocker-title {
+                font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 12px;
+                background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+                -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                background-size: 200% auto; animation: textShimmer 3s ease infinite;
+            }
+
+            /* Language Switcher inside Blocker */
+            .lang-switch {
+                display: inline-flex; gap: 5px; margin-top: 25px;
+                background: rgba(255, 255, 255, 0.03); padding: 4px; border-radius: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .lang-btn {
+                background: transparent; border: none; color: var(--text-muted);
+                padding: 6px 14px; font-size: 0.8rem; font-weight: 700; border-radius: 8px;
+                cursor: pointer; transition: all 0.3s;
+            }
+            .lang-btn.active {
+                background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan);
+                border: 1px solid rgba(6, 182, 212, 0.2);
+            }
         }
-        @media (min-width: 1025px) { #mobile-blocker { display: none; } }
+        /* Versteckt den Blocker auf iPads, Tablets (ab 768px) und PCs */
+        @media (min-width: 768px) { #mobile-blocker { display: none; } }
+
+        @keyframes blockerFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
 
         /* SCROLL ANIMATION FADE */
         .fade { opacity: 0; transform: translateY(40px); transition: 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -205,9 +265,30 @@
     </div>
 
     <div id="mobile-blocker">
-        <i data-lucide="monitor" size="48" style="color: var(--accent-cyan);"></i>
-        <h2 style="margin-top:20px;">PC benötigt</h2>
-        <p style="color:var(--text-muted); margin-top:10px;">Bitte besuche uns am Computer für das beste Erlebnis.</p>
+        <div class="blocker-card">
+            <div class="blocker-icon-wrap">
+                <i data-lucide="monitor" size="32" style="color: var(--accent-cyan);"></i>
+            </div>
+            
+            <div id="blocker-de">
+                <h2 class="blocker-title">PC BENÖTIGT</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+                    Unser neues Kirmes-Projekt setzt auf komplexe Technik, Steuerungen und Lichtshows. Bitte besuche uns am Computer für das volle Erlebnis!
+                </p>
+            </div>
+
+            <div id="blocker-en" style="display: none;">
+                <h2 class="blocker-title">PC REQUIRED</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+                    Our fairground project features complex mechanics, simulation controls, and light shows. Please visit us on a computer for the best experience!
+                </p>
+            </div>
+
+            <div class="lang-switch">
+                <button class="lang-btn active" id="btn-de" onclick="switchLang('de')">DE</button>
+                <button class="lang-btn" id="btn-en" onclick="switchLang('en')">EN</button>
+            </div>
+        </div>
     </div>
 
     <nav>
@@ -294,6 +375,26 @@
 
         window.onbeforeunload = function () { window.scrollTo(0, 0); };
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
+
+        // Sprachsteuerung für den Blocker
+        function switchLang(lang) {
+            const deBox = document.getElementById('blocker-de');
+            const enBox = document.getElementById('blocker-en');
+            const btnDe = document.getElementById('btn-de');
+            const btnEn = document.getElementById('btn-en');
+
+            if (lang === 'de') {
+                deBox.style.display = 'block';
+                enBox.style.display = 'none';
+                btnDe.classList.add('active');
+                btnEn.classList.remove('active');
+            } else {
+                deBox.style.display = 'none';
+                enBox.style.display = 'block';
+                btnDe.classList.remove('active');
+                btnEn.classList.add('active');
+            }
+        }
 
         // Loader Simulation
         window.addEventListener('load', () => {
