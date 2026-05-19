@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klein Stadt | Evolution</title>
+    <title> Kirmes Game | In Bau  </title>
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -122,13 +122,12 @@
             transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
         }
         
-        /* Neuer, sauberer Lichtrahmen anstelle von Nebel-Flächen */
+        /* Sauberer Lichtrahmen um die Karten bei Hover */
         .info-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 0 0 2px var(--live-color, var(--accent-cyan)), 0 15px 35px rgba(0, 0, 0, 0.5);
         }
         
-        /* Individuelle Rahmenleuchten-Farben für die Karten */
         .info-grid .info-card:nth-child(1):hover { --live-color: var(--accent-cyan); border-color: transparent; }
         .info-grid .info-card:nth-child(2):hover { --live-color: var(--accent-purple); border-color: transparent; }
         .info-grid .info-card:nth-child(3):hover { --live-color: var(--accent-pink); border-color: transparent; }
@@ -139,7 +138,7 @@
         }
         .info-card:hover .card-icon { transform: scale(1.05) rotate(3deg); }
         .info-card:nth-child(1) .card-icon { color: var(--accent-cyan); box-shadow: 0 0 20px rgba(6, 182, 212, 0.1); }
-        .info-child:nth-child(2) .card-icon, .info-card:nth-child(2) .card-icon { color: var(--accent-purple); box-shadow: 0 0 20px rgba(168, 85, 247, 0.1); }
+        .info-card:nth-child(2) .card-icon { color: var(--accent-purple); box-shadow: 0 0 20px rgba(168, 85, 247, 0.1); }
         .info-card:nth-child(3) .card-icon { color: var(--accent-pink); box-shadow: 0 0 20px rgba(236, 72, 153, 0.1); }
 
         .info-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
@@ -148,10 +147,10 @@
         /* ===== DOMAIN NOTICE BADGE ===== */
         .domain-notice {
             display: flex; align-items: center; gap: 12px; max-width: 600px; margin: 80px auto 0 auto;
-            padding: 18px 25px; background: rgba(236, 72, 153, 0.03); border: 1px dashed rgba(236, 72, 153, 0.2);
+            padding: 18px 25px; background: rgba(6, 182, 212, 0.03); border: 1px dashed rgba(6, 182, 212, 0.2);
             border-radius: 20px; color: var(--text-muted); font-size: 0.9rem; text-align: left;
         }
-        .domain-notice i { color: var(--accent-pink); flex-shrink: 0; }
+        .domain-notice i { color: var(--accent-cyan); flex-shrink: 0; }
         .domain-notice b { color: #fff; font-weight: 600; }
 
         /* ===== DETAILED MAINTENANCE STATUS ===== */
@@ -258,7 +257,7 @@
 
         <div class="domain-notice fade">
             <i data-lucide="globe" size="22"></i>
-            <p><b>Wichtiger Hinweis zur URL:</b> Da wir das Projekt komplett neu strukturieren, wird sich in Kürze auch unsere Web-Adresse ändern. Wundert euch also nicht, warum hier aktuell noch „kleinstadt“ in der Domain steht!</p>
+            <p><b>Hinweis zur Web-Adresse:</b> Da wir das Projekt derzeit komplett umstrukturieren, läuft die Seite vorerst stabil über GitHub-Hosting. Wundert euch also nicht über das aktuelle Format der Domain – das bleibt erst einmal genau so bestehen!</p>
         </div>
 
         <div class="status-box fade">
@@ -317,18 +316,18 @@
             }, 80);
         });
 
-        // Main Progress Bar Animation
+        // Main Progress Bar Animation (Auf 15% erhöht)
         function animateProgressBar() {
             const bar = document.getElementById('main-bar');
             const val = document.getElementById('perc-val');
-            const target = 8; 
+            const target = 15; 
             bar.style.width = target + '%';
             let current = 0;
             let interval = setInterval(() => {
                 if(current >= target) clearInterval(interval);
                 val.innerText = current + '%';
                 current++;
-            }, 60);
+            }, 40);
         }
 
         // Modern Scroll Observer with delay
